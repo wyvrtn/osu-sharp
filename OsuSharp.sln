@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp", "OsuSharp\OsuSharp.csproj", "{05433EC8-C80E-4BE0-8AC7-B541993A7EDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp", "OsuSharp\OsuSharp.csproj", "{05433EC8-C80E-4BE0-8AC7-B541993A7EDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{7AEAEB52-5F4D-4EC4-A556-DDEF47731744}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{05433EC8-C80E-4BE0-8AC7-B541993A7EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05433EC8-C80E-4BE0-8AC7-B541993A7EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05433EC8-C80E-4BE0-8AC7-B541993A7EDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AEAEB52-5F4D-4EC4-A556-DDEF47731744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AEAEB52-5F4D-4EC4-A556-DDEF47731744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AEAEB52-5F4D-4EC4-A556-DDEF47731744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AEAEB52-5F4D-4EC4-A556-DDEF47731744}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
