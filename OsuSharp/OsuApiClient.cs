@@ -26,7 +26,7 @@ public partial class OsuApiClient
   /// </summary>
   private readonly HttpClient _http = new HttpClient()
   {
-    BaseAddress = new Uri("https://osu.ppy.sh/api/v2")
+    BaseAddress = new Uri("https://osu.ppy.sh/api/v2/")
   };
 
   /// <summary>
@@ -91,9 +91,16 @@ public partial class OsuApiClient
   /// <returns></returns>
   public async Task<T?> GetFromJsonAsync<T>(string url)
   {
-    // Send the request, parse the JSON object and return it.
-    var response = await _http.GetAsync(url);
-    string json = await response.Content.ReadAsStringAsync();
-    return JsonConvert.DeserializeObject<T?>(json);
+    try
+    {
+      // Send the request, parse the JSON object and return it.
+      var response = await _http.GetAsync(url);
+      string json = await response.Content.ReadAsStringAsync();
+      return JsonConvert.DeserializeObject<T?>(json);
+    }
+    catch (Exception ex)
+    {
+      throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response to type`{typeof(T).Name}.", ex);
+    }
   }
 }

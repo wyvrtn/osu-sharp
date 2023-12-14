@@ -32,8 +32,20 @@ public partial class OsuApiClient
       // Ensure a valid access token.
       await EnsureAccessTokenAsync();
 
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+      Console.WriteLine("doing next request");
+
       // Send the request and validate the response.
-      BeatmapPacksResponse? bpResponse = await GetFromJsonAsync<BeatmapPacksResponse>($"/beatmaps/packs?type={type.ToString().ToLower()}&cursor_string={cursor}");
+      BeatmapPacksResponse? bpResponse = await GetFromJsonAsync<BeatmapPacksResponse>($"beatmaps/packs?type={type.ToString().ToLower()}&cursor_string={cursor}");
       if (bpResponse is null)
         throw new OsuApiException("An error occured while requesting the beatmap packs. (response is null).");
 
