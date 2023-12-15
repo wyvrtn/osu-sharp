@@ -14,13 +14,13 @@ public class BeatmapPacksResponse
   /// The beatmap packs included in the response.
   /// </summary>
   [JsonProperty("beatmap_packs")]
-  public BeatmapPack[] Packs { get; private set; } = default!;
+  public BeatmapPack[] Packs { get; private set; } 
 
   /// <summary>
   /// The cursor string for the next page of beatmap packs.
   /// </summary>
   [JsonProperty("cursor_string")]
-  public string Cursor { get; private set; } = default!;
+  public string Cursor { get; private set; } 
 
 
 }

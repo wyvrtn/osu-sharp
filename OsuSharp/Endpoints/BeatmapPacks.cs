@@ -48,6 +48,7 @@ public partial class OsuApiClient
     }
     while (cursor != null);
   }
+
   /// <summary>
   /// Gets the beatmap pack with the specified tag from the osu! API v2.
   /// 

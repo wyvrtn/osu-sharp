@@ -14,15 +14,15 @@ namespace OsuSharp.Models.Beatmaps;
 /// </summary>
 public class NominationsSummary
 {
-    /// <summary>
-    /// The amount of nominations this beatmapset currently has.
-    /// </summary>
-    [JsonProperty("current")]
-    public int Current { get; private set; } = default!;
+  /// <summary>
+  /// The amount of nominations this beatmapset currently has.
+  /// </summary>
+  [JsonProperty("current")]
+  public int Current { get; private set; }
 
-    /// <summary>
-    /// The amount nominations the beatmapset requires to be qualified for ranking.
-    /// </summary>
-    [JsonProperty("required")]
-    public int Required { get; private set; } = default!;
+  /// <summary>
+  /// The amount nominations the beatmapset requires to be qualified for ranking.
+  /// </summary>
+  [JsonProperty("required")]
+  public int Required { get; private set; }
 }

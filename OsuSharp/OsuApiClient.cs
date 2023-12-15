@@ -104,7 +104,7 @@ public partial class OsuApiClient
     }
     catch (Exception ex)
     {
-      throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response to type `{typeof(T).Name}.", ex);
+      throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response to type `{typeof(T).Name}`.", ex);
     }
   }
 }
