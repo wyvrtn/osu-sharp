@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OsuSharp.Models.Beatmaps;
 using System;
 using System.Collections.Generic;
 using System.Linq;

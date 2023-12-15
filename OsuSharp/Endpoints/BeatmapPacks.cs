@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OsuSharp.Enums;
 using OsuSharp.Models;
+using OsuSharp.Models.Beatmaps;
 using OsuSharp.Models.Responses;
 using System;
 using System.Collections.Generic;
