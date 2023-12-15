@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OsuSharp.Models;
 using OsuSharp.Models.Responses;
+using System.Net;
 using System.Net.Http.Headers;
 
 namespace OsuSharp;
@@ -86,21 +87,24 @@ public partial class OsuApiClient
   /// <summary>
   /// Sends a GET request to the specified URL and parses the JSON in the response into the specified type.
   /// </summary>
-  /// <typeparam name="T"></typeparam>
-  /// <param name="url"></param>
+  /// <typeparam name="T">The type to parse the JSON in the response into.</typeparam>
+  /// <param name="url">The request URL.</param>
   /// <returns></returns>
-  public async Task<T?> GetFromJsonAsync<T>(string url)
+  private async Task<T?> GetFromJsonAsync<T>(string url)
   {
     try
     {
-      // Send the request, parse the JSON object and return it.
+      // Send the request, and validate the response. If 404 is returned, return null.
       var response = await _http.GetAsync(url);
-      string json = await response.Content.ReadAsStringAsync();
-      return JsonConvert.DeserializeObject<T?>(json);
+      if (response.StatusCode == HttpStatusCode.NotFound)
+        return default;
+
+      // Parse the JSON in the response into the specified type and return it.
+      return JsonConvert.DeserializeObject<T?>(await response.Content.ReadAsStringAsync());
     }
     catch (Exception ex)
     {
-      throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response to type`{typeof(T).Name}.", ex);
+      throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response to type `{typeof(T).Name}.", ex);
     }
   }
 }

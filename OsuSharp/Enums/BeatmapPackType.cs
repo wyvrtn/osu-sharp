@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OsuSharp.Enums;
 
 /// <summary>
-/// Represents the type of beatmap pack to be retrieved.
+/// An enum containing the type of beatmap packs that exist.
 /// </summary>
 public enum BeatmapPackType
 {

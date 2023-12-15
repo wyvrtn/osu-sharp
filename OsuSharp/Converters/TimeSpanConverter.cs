@@ -1,0 +1,42 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OsuSharp.Converters;
+
+/// <summary>
+/// A <see cref="JsonConverter"/> to convert integers representing seconds to time spans and vice versa.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class TimeSpanConverter : JsonConverter
+{
+  public override bool CanConvert(Type objectType)
+  {
+    // Only allow integers to be converted.
+    return objectType.Equals(typeof(int));
+  }
+
+  public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+  {
+    // If the value is an integer and not null, convert it into a timespan.
+    if (reader.TokenType == JsonToken.String && reader.Value is not null)
+      return TimeSpan.FromSeconds((int)reader.Value);
+
+    // If the value is not valid, throw an exception.
+    throw new JsonSerializationException($"Unable to convert '{reader.Value}' into a timespan.");
+  }
+
+  public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+  {
+    // If the value is a timespan, write it as it's total seconds.
+    if (value is TimeSpan span)
+      writer.WriteValue(span.Seconds);
+
+    // If the value is not valid, throw an exception.
+    else
+      throw new JsonSerializationException($"Unexpected type {value?.GetType().Name}.");
+  }
+}

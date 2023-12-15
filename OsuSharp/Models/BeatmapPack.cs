@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 namespace OsuSharp.Models;
 
 /// <summary>
-/// Represents a beatmap pack, a bundle of multiple beatmapsets, as returned by the API.
+/// Represents a beatmap pack, a bundle of multiple beatmapsets, as returned by the osu! API v2.
+/// 
+/// https://osu.ppy.sh/docs/index.html#beatmappack
 /// </summary>
 public class BeatmapPack
 {
@@ -47,4 +49,11 @@ public class BeatmapPack
   /// </summary>
   [JsonProperty("url")]
   public string Url { get; private set; } = default!;
+
+  /// <summary>
+  /// The beatmap sets included in the beatmap pack.
+  /// If multiple beatmap packs are requested through the API, this property will be null.s
+  /// </summary>
+  [JsonProperty("beatmapsets")]
+  public BeatmapSetExtended[]? BeatmapSets { get; private set; }
 }
