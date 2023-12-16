@@ -11,7 +11,7 @@ namespace OsuSharp.Models.Beatmaps;
 /// Contains the URLs to the cover texture assets of a beatmapset.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapset-covers"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-json.ts"/>
 /// </summary>
 public class BeatmapSetCovers
 {

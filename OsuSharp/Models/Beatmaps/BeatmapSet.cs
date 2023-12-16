@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using OsuSharp.Enums;
+using OsuSharp.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace OsuSharp.Models.Beatmaps;
 /// </summary>
 public class BeatmapSet
 {
+  // TODO: "nominations" attribute? idk
+
   #region Default Attributes
 
   /// <summary>
@@ -40,7 +43,7 @@ public class BeatmapSet
   /// The name of the creator of this beatmapset.
   /// </summary>
   [JsonProperty("creator")]
-  public string Creator { get; private set; } = default!;
+  public string CreatorName { get; private set; } = default!;
 
   /// <summary>
   /// The amount of favourites this beatmapset has.
@@ -52,7 +55,7 @@ public class BeatmapSet
   /// Info about the hype progress of this beatmapset.
   /// </summary>
   [JsonProperty("hype")]
-  public BeatmapSetHypes Hypes { get; private set; } = default!;
+  public Hypes Hypes { get; private set; } = default!;
 
   /// <summary>
   /// The ID of this beatmapset.
@@ -158,13 +161,61 @@ public class BeatmapSet
   /// The nominations on this beatmapset. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("current_nominations")]
-  public BeatmapSetNomination[]? Nominations { get; private set; }
+  public Nomination[]? Nominations { get; private set; }
 
   /// <summary>
   /// The description of this beatmapset. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("description")]
   public BeatmapSetDescription? Description { get; private set; }
+
+  /// <summary>
+  /// The discussions on this beatmapset. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("discussions")]
+  public Discussion[]? Discussions { get; private set; }
+
+  /// <summary>
+  /// The events of this beatmapset. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("events")]
+  public BeatmapSetEvent[]? Events { get; private set; }
+
+  /// <summary>
+  /// The genre of the song this beatmapset is made for. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("genre")]
+  public Genre? Genre { get; private set; }
+
+  /// <summary>
+  /// The language of the song this beatmapset is made for. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("language")]
+  public Language? Language { get; private set; }
+
+  /// <summary>
+  /// A 11-element array representing the the amount of ratings of this beatmapset for all ratings between 0-10. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("ratings")]
+  public int[]? Ratings { get; private set; }
+
+  /// <summary>
+  /// The (up to) 50 users that favourited this beatmapset most recently. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("recent_favourites")]
+  public User[]? RecentFavourites { get; private set; }
+
+  /// <summary>
+  /// All users related to this beatmapset (main creator, guest difficulty creators, nominators). This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("related_users")]
+  public User[]? RelatedUsers { get; private set; }
+
+  /// <summary>
+  /// The user that created this beatmapset. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("user")]
+  public User? Creator { get; private set; }
 
   #endregion
 }

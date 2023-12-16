@@ -89,7 +89,7 @@ public class Beatmap
   /// <summary>
   /// The amount of times players have exited of failed the beatmap at a certain percentage. This is an optional property and may be null.
   /// </summary>
-  public BeatmapFailtimes[]? Failtimes { get; private set; }
+  public Failtimes[]? Failtimes { get; private set; }
 
   /// <summary>
   /// The maximum achievable combo on this beatmap. This is an optional property and may be null.

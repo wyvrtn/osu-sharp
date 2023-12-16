@@ -11,9 +11,9 @@ namespace OsuSharp.Models.Beatmaps;
 /// Represents the hype progress of a beatmapset.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapsetextended"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-json.ts"/>
 /// </summary>
-public class BeatmapSetHypes
+public class Hypes
 {
   /// <summary>
   /// The amount of hypes this beatmapset currently has.

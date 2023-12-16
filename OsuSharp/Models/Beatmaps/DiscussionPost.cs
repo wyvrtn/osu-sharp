@@ -13,7 +13,7 @@ namespace OsuSharp.Models.Beatmaps;
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapsetdiscussionpost"/><br/>
 /// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-discussion-post-json.ts"/>
 /// </summary>
-public class BeatmapSetDiscussionPost
+public class DiscussionPost
 {
   // TODO: some message & resolved & value bool shenanigans, refer to source
 
@@ -75,7 +75,7 @@ public class BeatmapSetDiscussionPost
   /// The discussion this post belongs to. This may be null.
   /// </summary>
   [JsonProperty("beatmap_discussion")]
-  public BeatmapSetDiscussion? Discussion { get; private set; }
+  public Discussion? Discussion { get; private set; }
 
   #endregion
 }

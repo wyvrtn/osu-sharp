@@ -20,12 +20,6 @@ public class BeatmapSetExtended : BeatmapSet
   #region Default Attributes
 
   /// <summary>
-  /// Info about the availability of this beatmapset.
-  /// </summary>
-  [JsonProperty("availability")]
-  public new BeatmapSetAvailability Availability { get; private set; } = default!;
-
-  /// <summary>
   /// The beats per minute (BPM) of this beatmapset.
   /// </summary>
   [JsonProperty("bpm")]
@@ -71,7 +65,7 @@ public class BeatmapSetExtended : BeatmapSet
   /// Info about the nomination progress of this beatmapset.
   /// </summary>
   [JsonProperty("nominations_summary")]
-  public BeatmapSetNominationsSummary NominationSummary { get; private set; } = default!;
+  public NominationSummary NominationSummary { get; private set; } = default!;
 
   /// <summary>
   /// The datetime at which this beatmapset was ranked, qualified, approved or loved. This will be null if the beatmapset has none of these statuses.

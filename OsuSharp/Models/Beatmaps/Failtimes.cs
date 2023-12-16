@@ -11,9 +11,9 @@ namespace OsuSharp.Models.Beatmaps;
 /// Represents the amount of times players have failed or exited the beatmap at a certain percentage, representing by each element in the 100-element arrays.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmap-failtimes"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmap-json.ts"/>
 /// </summary>
-public class BeatmapFailtimes
+public class Failtimes
 {
   /// <summary>
   /// The amount of times players have exited the beatmap at a certain percentage. This may be null.

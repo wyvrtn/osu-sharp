@@ -15,7 +15,7 @@ namespace OsuSharp.Models.Beatmaps;
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#nomination"/><br/>
 /// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-nomination-json.ts"/>
 /// </summary>
-public class BeatmapSetNomination
+public class Nomination
 {
   /// <summary>
   /// The ID of the beatmapset that this nomination is for.

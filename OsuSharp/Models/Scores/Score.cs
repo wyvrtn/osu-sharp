@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Converters;
 using OsuSharp.Enums;
 using OsuSharp.Models.Beatmaps;
+using OsuSharp.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace OsuSharp.Models.Scores;
 /// Represents a score.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#score"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/score-json.ts"/>
 /// </summary>
 public class Score
 {
+  #region Default Attributes
+
   /// <summary>
   /// The accuracy of this score.
   /// </summary>
@@ -77,7 +80,7 @@ public class Score
   /// The amount of performance points the score is worth. This will be null if the score is not ranked.
   /// </summary>
   [JsonProperty("pp")]
-  public float TotalPP { get; private set; }
+  public float PP { get; private set; }
 
   /// <summary>
   /// The rank of this score. (XH, X, SH, S, A, B, C, D)
@@ -115,27 +118,51 @@ public class Score
   [JsonProperty("user_id")]
   public int UserId { get; private set; }
 
+  #endregion
+
+  #region Optional Attributes
+
   /// <summary>
-  /// The beatmap this score was achieved on. This may be null.
+  /// The beatmap this score was achieved on. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("beatmap")]
   public BeatmapExtended? Beatmap { get; private set; }
 
   /// <summary>
-  /// The beatmapset the beatmap this score was achieved on belongs to. This may be null.
+  /// The beatmapset the beatmap this score was achieved on belongs to. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("beatmapset")]
   public BeatmapSet? BeatmapSet { get; private set; }
 
   /// <summary>
-  /// The placement of the score on the beatmap's leaderboard in the player's country. This may be null.
+  /// The match this score was achieved in. This is an optional property and will be null if the score was not achieved in a match.
+  /// </summary>
+  [JsonProperty("match")]
+  public Match? Match { get; private set; }
+
+  /// <summary>
+  /// The placement of the score on the beatmap's leaderboard in the player's country. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("rank_country")]
   public int RankCountry { get; private set; }
 
   /// <summary>
-  /// The placement of the score on the beatmap's leaderboard. This may be null.
+  /// The placement of the score on the beatmap's leaderboard. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("rank_global")]
   public int RankGlobal { get; private set; }
+
+  /// <summary>
+  /// The user that achieved this score. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("user")]
+  public User? User { get; private set; }
+
+  /// <summary>
+  /// The weighted performance points of this score. This is an optional property and will be null if the score is not ranked.
+  /// </summary>
+  [JsonProperty("weight")]
+  public WeightedPP? WeightedPP { get; private set; }
+
+  #endregion
 }

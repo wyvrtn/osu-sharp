@@ -12,7 +12,7 @@ namespace OsuSharp.Models.Beatmaps;
 /// Represents a user score on a beatmap, including the position of the score on the map leaderboards.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapuserscore"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/beatmapsets-show/scoreboard/controller.ts"/>
 /// </summary>
 public class BeatmapUserScore
 {

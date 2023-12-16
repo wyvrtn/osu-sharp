@@ -11,7 +11,7 @@ namespace OsuSharp.Models.Scores;
 /// Represents the statistics (hit judgements) of a score.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#score"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/score-json.ts"/>
 /// </summary>
 public class ScoreStatistics
 {

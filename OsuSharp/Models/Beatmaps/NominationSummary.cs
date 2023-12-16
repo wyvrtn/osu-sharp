@@ -11,9 +11,9 @@ namespace OsuSharp.Models.Beatmaps;
 /// Represents the nomination progress of a beatmapset.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapsetextended"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-extended-json.ts"/>
 /// </summary>
-public class BeatmapSetNominationsSummary
+public class NominationSummary
 {
   /// <summary>
   /// The amount of nominations this beatmapset currently has.

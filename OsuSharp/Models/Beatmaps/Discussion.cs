@@ -15,7 +15,7 @@ namespace OsuSharp.Models.Beatmaps;
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapsetdiscussion"/><br/>
 /// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-discussion-json.ts"/>
 /// </summary>
-public class BeatmapSetDiscussion
+public class Discussion
 {
   #region Default Attributes
 
@@ -132,7 +132,23 @@ public class BeatmapSetDiscussion
   [JsonProperty("beatmapset")]
   public BeatmapSet? BeatmapSet { get; private set; }
 
+  /// <summary>
+  /// The posts made in this discussion. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("posts")]
+  public DiscussionPost[]? Posts { get; private set; }
 
+  /// <summary>
+  /// The starting post of this discussion. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("starting_post")]
+  public DiscussionPost? StartingPost { get; private set; }
+
+  /// <summary>
+  /// The votes of this discussion. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("votes")]
+  public DiscussionVotes? Votes { get; private set; }
 
   #endregion
 }
