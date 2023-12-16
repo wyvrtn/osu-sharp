@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 namespace OsuSharp.Models.Scores;
 
 /// <summary>
-/// Represents the match a score was set in, as returned by the osu! API v2.
-/// 
-/// 
+/// Represents the match a score was set in.
+/// <br/><br/>
+/// API docs:
+/// Source: <a href=""/>
 /// </summary>
 internal class Match
 {

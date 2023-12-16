@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace OsuSharp.Models.Scores;
 
 /// <summary>
-/// Represents the statistics (hit judgements) of a score, as returned by the osu! API v2.
-/// 
-/// https://osu.ppy.sh/docs/index.html#score
+/// Represents the statistics (hit judgements) of a score.
+/// <br/><br/>
+/// API docs: <a href="https://osu.ppy.sh/docs/index.html#score"/><br/>
+/// Source: <a href=""/>
 /// </summary>
 public class ScoreStatistics
 {

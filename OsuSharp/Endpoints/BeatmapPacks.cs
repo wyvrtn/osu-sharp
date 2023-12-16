@@ -16,7 +16,7 @@ public partial class OsuApiClient
   // API docs: https://osu.ppy.sh/docs/index.html#beatmap-packs
 
   /// <summary>
-  /// Fetches all beatmap packs with the specified type from the osu! API v2 and returns an asynchronous enumerable,
+  /// Fetches all beatmap packs with the specified type and returns an asynchronous enumerable,
   /// allowing to lazily enumerate through all beatmap packs, performing further pagination requests as necessary.
   /// <br/><br/>
   /// NOTE: This endpoint does not provide support for targetting a specific page directly per API design.<br/>
@@ -50,7 +50,7 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Gets the beatmap pack with the specified tag from the osu! API v2.
+  /// Gets the beatmap pack with the specified tag.
   /// <br/><br/>
   /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-beatmap-pack"/>
   /// </summary>

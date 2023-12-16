@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace OsuSharp.Models.Beatmaps;
 
 /// <summary>
-/// Represents the hype progress of a beatmapset, as returned by the osu! API v2.
-/// 
-/// https://osu.ppy.sh/docs/index.html#beatmapsetextended
+/// Represents the hype progress of a beatmapset.
+/// <br/><br/>
+/// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapsetextended"/><br/>
+/// Source: <a href=""/>
 /// </summary>
 public class Hypes
 {

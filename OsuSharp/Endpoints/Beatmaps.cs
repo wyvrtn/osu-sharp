@@ -16,7 +16,7 @@ public partial class OsuApiClient
   // API docs: https://osu.ppy.sh/docs/index.html#beatmaps
 
   /// <summary>
-  /// Looksup the beatmap with the specified MD5 checksum from the osu! API v2.
+  /// Looksup the beatmap with the specified MD5 checksum.
   /// If the beatmap is not found, null is returned.
   /// <br/><br/>
   /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
@@ -26,7 +26,7 @@ public partial class OsuApiClient
   public async Task<Beatmap?> LookupBeatmapChecksum(string checksum) => await LookupBeatmapInternal($"checksum={HttpUtility.UrlEncode(checksum)}");
 
   /// <summary>
-  /// Looksup the beatmap with the specified filename from the osu! API v2.
+  /// Looksup the beatmap with the specified filename.
   /// If the beatmap is not found, null is returned.
   /// <br/><br/>
   /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
@@ -36,7 +36,7 @@ public partial class OsuApiClient
   public async Task<Beatmap?> LookupBeatmapFilename(string filename) => await LookupBeatmapInternal($"filename={HttpUtility.UrlEncode(filename)}");
 
   /// <summary>
-  /// Looksup the beatmap with the specified ID from the osu! API v2.
+  /// Looksup the beatmap with the specified ID.
   /// If the beatmap is not found, null is returned.
   /// <br/><br/>
   /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
@@ -46,7 +46,7 @@ public partial class OsuApiClient
   public async Task<Beatmap?> LookupBeatmapId(int beatmapId) => await LookupBeatmapInternal($"id={beatmapId}");
 
   /// <summary>
-  /// Looksup the beatmap with the specified query parameter from the osu! API v2.
+  /// Looksup the beatmap with the specified query parameter.
   /// If the beatmap is not found, null is returned.
   /// <br/><br/>
   /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
@@ -60,7 +60,7 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Gets the best user score for the specified mods on the specified beatmap in the specified ruleset from the osu! API v2.
+  /// Gets the best user score for the specified mods on the specified beatmap in the specified ruleset.
   /// <br/><br/>
   /// NOTE: As per API docs, the mods parameter is not implemented yet.<br/>
   /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-a-user-beatmap-score"/>
@@ -84,7 +84,7 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Gets the beatmap with the specified ID from the osu! API v2.
+  /// Gets the beatmap with the specified ID.
   /// <br/><br/>
   /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-beatmap"/>
   /// </summary>

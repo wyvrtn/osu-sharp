@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace OsuSharp.Models.Beatmaps;
 
 /// <summary>
-/// Contains the URLs to the cover texture assets of a beatmapset, as returned by the osu! API v2.
-/// 
-/// https://osu.ppy.sh/docs/index.html#beatmapset-covers
+/// Contains the URLs to the cover texture assets of a beatmapset.
+/// <br/><br/>
+/// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapset-covers"/><br/>
+/// Source: <a href=""/>
 /// </summary>
 public class Covers
 {

@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 namespace OsuSharp.Models.Beatmaps;
 
 /// <summary>
-/// Represents an extended beatmap, as returned by the osu! API v2.
-/// This object inherits from <see cref="Beatmap"/> and contains additional properties.
-/// 
-/// https://osu.ppy.sh/docs/index.html#beatmapextended
+/// Represents an extended beatmap, inheriting from <see cref="Beatmap"/> and includes additional properties.
+/// The API differs between normal beatmaps and extended beatmaps, as not all information is available on all endpoints.
+/// <br/><br/>
+/// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapextended"/><br/>
+/// Source: <a href=""/>
 /// </summary>
 public class BeatmapExtended : Beatmap
 {

@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace OsuSharp.Models.Beatmaps;
 
 /// <summary>
-/// Represents a beatmap pack, a bundle of multiple beatmapsets, as returned by the osu! API v2.
-/// 
-/// https://osu.ppy.sh/docs/index.html#beatmappack
+/// Represents a beatmap pack, which is an officially composed bundle of beatmapsets.
+/// <br/><br/>
+/// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmappack"/><br/>
+/// Source: <a href=""/>
 /// </summary>
 public class BeatmapPack
 {

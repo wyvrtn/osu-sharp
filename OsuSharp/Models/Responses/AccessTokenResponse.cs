@@ -9,6 +9,8 @@ namespace OsuSharp.Models.Responses;
 
 /// <summary>
 /// Represents the response of an access token request on the osu! API v2.
+/// <br/><br/>
+/// API docs: <a href="https://osu.ppy.sh/docs/index.html#client-credentials-grant"/>
 /// </summary>
 internal class AccessTokenResponse
 {
