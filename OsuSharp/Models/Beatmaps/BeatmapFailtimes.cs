@@ -13,7 +13,7 @@ namespace OsuSharp.Models.Beatmaps;
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmap-failtimes"/><br/>
 /// Source: <a href=""/>
 /// </summary>
-public class Failtimes
+public class BeatmapFailtimes
 {
   /// <summary>
   /// The amount of times players have exited the beatmap at a certain percentage. This may be null.

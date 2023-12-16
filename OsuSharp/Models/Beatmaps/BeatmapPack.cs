@@ -11,7 +11,7 @@ namespace OsuSharp.Models.Beatmaps;
 /// Represents a beatmap pack, which is an officially composed bundle of beatmapsets.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmappack"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/app/Models/BeatmapPack.php"/>
 /// </summary>
 public class BeatmapPack
 {
@@ -49,11 +49,11 @@ public class BeatmapPack
   /// The URL for downloading the beatmap pack.
   /// </summary>
   [JsonProperty("url")]
-  public string Url { get; private set; }
+  public string Url { get; private set; } = default!;
 
   /// <summary>
   /// The beatmap sets included in the beatmap pack.
-  /// If multiple beatmap packs are requested through the API, this property will be null.s
+  /// If multiple beatmap packs are requested through the API, this property will be null.
   /// </summary>
   [JsonProperty("beatmapsets")]
   public BeatmapSetExtended[]? BeatmapSets { get; private set; }

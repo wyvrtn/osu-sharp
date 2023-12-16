@@ -13,7 +13,7 @@ namespace OsuSharp.Models.Beatmaps;
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapset-covers"/><br/>
 /// Source: <a href=""/>
 /// </summary>
-public class Covers
+public class BeatmapSetCovers
 {
   /// <summary>
   /// The cover asset of the beatmapset.

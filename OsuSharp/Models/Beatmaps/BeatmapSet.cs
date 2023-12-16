@@ -13,10 +13,12 @@ namespace OsuSharp.Models.Beatmaps;
 /// Represents a beatmapset.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapset"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-json.ts"/>
 /// </summary>
 public class BeatmapSet
 {
+  #region Default Attributes
+
   /// <summary>
   /// The artist of the song this beatmapset is made for.
   /// </summary>
@@ -32,7 +34,7 @@ public class BeatmapSet
   /// <summary>
   /// The URLs for the cover texture assets of this beatmapset.
   /// </summary>
-  public Covers Covers { get; private set; } = default!;
+  public BeatmapSetCovers Covers { get; private set; } = default!;
 
   /// <summary>
   /// The name of the creator of this beatmapset.
@@ -50,7 +52,7 @@ public class BeatmapSet
   /// Info about the hype progress of this beatmapset.
   /// </summary>
   [JsonProperty("hype")]
-  public Hypes Hypes { get; private set; } = default!;
+  public BeatmapSetHypes Hypes { get; private set; } = default!;
 
   /// <summary>
   /// The ID of this beatmapset.
@@ -113,6 +115,12 @@ public class BeatmapSet
   public string TitleUnicode { get; private set; } = default!;
 
   /// <summary>
+  /// TODO: what is this?
+  /// </summary>
+  [JsonProperty("track_id")]
+  public int? TrackId { get; private set; }
+
+  /// <summary>
   /// The user ID of the creator of this beatmapset.
   /// </summary>
   [JsonProperty("user_id")]
@@ -124,9 +132,39 @@ public class BeatmapSet
   [JsonProperty("video")]
   public bool HasVideo { get; private set; }
 
+  #endregion
+
+  #region Available Attributes
+
   /// <summary>
-  /// The beatmaps belonging to this beatmapset. This may be null.
+  /// Info about the availability of this beatmapset. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("availability")]
+  public BeatmapSetAvailability? Availability { get; private set; }
+
+  /// <summary>
+  /// The beatmaps belonging to this beatmapset. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("beatmaps")]
   public Beatmap[]? Beatmaps { get; private set; }
+
+  /// <summary>
+  /// The mode-converted version of the beatmaps belonging to this beatmapset. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("converts")]
+  public BeatmapExtended[]? Converts { get; private set; }
+
+  /// <summary>
+  /// The nominations on this beatmapset. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("current_nominations")]
+  public BeatmapSetNomination[]? Nominations { get; private set; }
+
+  /// <summary>
+  /// The description of this beatmapset. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("description")]
+  public BeatmapSetDescription? Description { get; private set; }
+
+  #endregion
 }

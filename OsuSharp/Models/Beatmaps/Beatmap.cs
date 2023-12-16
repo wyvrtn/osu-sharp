@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using OsuSharp.Enums;
+using OsuSharp.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,8 @@ namespace OsuSharp.Models.Beatmaps;
 /// </summary>
 public class Beatmap
 {
+  #region Default Attributes
+
   /// <summary>
   /// The ID of the beatmapset this beatmap belongs to.
   /// </summary>
@@ -69,24 +72,35 @@ public class Beatmap
   [JsonProperty("version")]
   public string Version { get; private set; } = default!;
 
+  #endregion
+
+  #region Available Attributes
+
   /// <summary>
-  /// The beatmap set this beatmap belongs to. This property is null if the beatmap does not have an associated beatmap set.
+  /// The beatmapset this beatmap belongs to. This is an optional property and may be null.
   /// </summary>
   public BeatmapSet? Set { get; private set; }
 
   /// <summary>
-  /// The MD5 checksum of the .osu file representing this beatmap. This may be null.
+  /// The MD5 checksum of the .osu file representing this beatmap. This is an optional property and may be null.
   /// </summary>
   public string? Checksum { get; private set; }
 
   /// <summary>
-  /// The amount of times players have exited of failed the beatmap at a certain percentage. This may be null.
+  /// The amount of times players have exited of failed the beatmap at a certain percentage. This is an optional property and may be null.
   /// </summary>
-  public Failtimes[]? Failtimes { get; private set; }
+  public BeatmapFailtimes[]? Failtimes { get; private set; }
 
   /// <summary>
-  /// The maximum achievable combo on this beatmap. This may be null.
+  /// The maximum achievable combo on this beatmap. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("max_combo")]
   public int? MaxCombo { get; private set; }
+
+  /// <summary>
+  /// The creator of this beatmap. This is an optional property and may be null.
+  /// </summary>
+  public User? Creator { get; private set; }
+
+  #endregion
 }

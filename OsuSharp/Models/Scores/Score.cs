@@ -22,13 +22,13 @@ public class Score
   /// The accuracy of this score.
   /// </summary>
   [JsonProperty("accuracy")]
-  public float Accuracy { get; internal set; }
+  public float Accuracy { get; private set; }
 
   /// <summary>
   /// The ID of the best score the player of this score achieved on the beatmap.
   /// </summary>
   [JsonProperty("best_id")]
-  public int BestId { get; internal set; }
+  public int BestId { get; private set; }
 
   /// <summary>
   /// The datetime at which this score was submitted to the osu! servers.
@@ -40,102 +40,102 @@ public class Score
   /// The ID of this score.
   /// </summary>
   [JsonProperty("id")]
-  public int Id { get; internal set; }
+  public int Id { get; private set; }
 
   /// <summary>
   /// The maximum combo achieved in this score.
   /// </summary>
   [JsonProperty("max_combo")]
-  public int MaxCombo { get; internal set; }
+  public int MaxCombo { get; private set; }
 
   /// <summary>
   /// The ruleset this score was achieved in.
   /// </summary>
   [JsonProperty("mode")]
   [JsonConverter(typeof(StringEnumConverter))]
-  public Ruleset Ruleset { get; internal set; }
+  public Ruleset Ruleset { get; private set; }
 
   /// <summary>
   /// The mods used for this score.
   /// </summary>
   [JsonProperty("mods")]
-  public string[] Mods { get; internal set; } = default!;
+  public string[] Mods { get; private set; } = default!;
 
   /// <summary>
   /// Bool whether this score passed the map.
   /// </summary>
   [JsonProperty("passed")]
-  public bool IsPass { get; internal set; }
+  public bool IsPass { get; private set; }
 
   /// <summary>
   /// Bool whether this score has a perfect combo.
   /// </summary>
   [JsonProperty("perfect")]
-  public bool IsPerfect { get; internal set; }
+  public bool IsPerfect { get; private set; }
 
   /// <summary>
   /// The amount of performance points the score is worth. This will be null if the score is not ranked.
   /// </summary>
   [JsonProperty("pp")]
-  public float TotalPP { get; internal set; }
+  public float TotalPP { get; private set; }
 
   /// <summary>
   /// The rank of this score. (XH, X, SH, S, A, B, C, D)
   /// </summary>
   [JsonProperty("rank")]
   [JsonConverter(typeof(StringEnumConverter))]
-  public Rank Rank { get; internal set; }
+  public Rank Rank { get; private set; }
 
   /// <summary>
   /// Bool whether the replay of this score is available on the osu! servers.
   /// </summary>
   [JsonProperty("replay")]
-  public bool IsReplayAvailable { get; internal set; }
+  public bool IsReplayAvailable { get; private set; }
 
   /// <summary>
   /// The total score points for this score.
   /// </summary>
   [JsonProperty("score")]
-  public int TotalScore { get; internal set; }
+  public int TotalScore { get; private set; }
 
   /// <summary>
   /// Bool whether this score is the player's best score on the beatmap.
   /// </summary>
-  public bool IsBest { get; internal set; }
+  public bool IsBest { get; private set; }
 
   /// <summary>
   /// The statistics (hit judgments) of this score.
   /// </summary>
   [JsonProperty("statistics")]
-  public ScoreStatistics Statistics { get; internal set; } = default!;
+  public ScoreStatistics Statistics { get; private set; } = default!;
 
   /// <summary>
   /// The ID of the player of this score.
   /// </summary>
   [JsonProperty("user_id")]
-  public int UserId { get; internal set; }
+  public int UserId { get; private set; }
 
   /// <summary>
   /// The beatmap this score was achieved on. This may be null.
   /// </summary>
   [JsonProperty("beatmap")]
-  public BeatmapExtended? Beatmap { get; internal set; }
+  public BeatmapExtended? Beatmap { get; private set; }
 
   /// <summary>
   /// The beatmapset the beatmap this score was achieved on belongs to. This may be null.
   /// </summary>
   [JsonProperty("beatmapset")]
-  public BeatmapSet? BeatmapSet { get; internal set; }
+  public BeatmapSet? BeatmapSet { get; private set; }
 
   /// <summary>
   /// The placement of the score on the beatmap's leaderboard in the player's country. This may be null.
   /// </summary>
   [JsonProperty("rank_country")]
-  public int RankCountry { get; internal set; }
+  public int RankCountry { get; private set; }
 
   /// <summary>
   /// The placement of the score on the beatmap's leaderboard. This may be null.
   /// </summary>
   [JsonProperty("rank_global")]
-  public int RankGlobal { get; internal set; }
+  public int RankGlobal { get; private set; }
 }

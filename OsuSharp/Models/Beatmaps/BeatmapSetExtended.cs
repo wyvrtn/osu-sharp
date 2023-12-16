@@ -13,15 +13,17 @@ namespace OsuSharp.Models.Beatmaps;
 /// The API differs between normal beatmapsets and extended beatmapsets, as not all information is available on all endpoints.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapsetextended"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-extended-json.ts"/>
 /// </summary>
 public class BeatmapSetExtended : BeatmapSet
 {
+  #region Default Attributes
+
   /// <summary>
   /// Info about the availability of this beatmapset.
   /// </summary>
   [JsonProperty("availability")]
-  public Availability Availability { get; private set; } = default!;
+  public new BeatmapSetAvailability Availability { get; private set; } = default!;
 
   /// <summary>
   /// The beats per minute (BPM) of this beatmapset.
@@ -60,7 +62,7 @@ public class BeatmapSetExtended : BeatmapSet
   public DateTimeOffset LastUpdated { get; private set; }
 
   /// <summary>
-  /// The URL to the legency thread of this beatmapset.
+  /// The URL to the legency thread of this beatmapset. This may be null.
   /// </summary>
   [JsonProperty("legacy_thread_url")]
   public string? LegacyThreadUrl { get; private set; }
@@ -69,7 +71,7 @@ public class BeatmapSetExtended : BeatmapSet
   /// Info about the nomination progress of this beatmapset.
   /// </summary>
   [JsonProperty("nominations_summary")]
-  public NominationsSummary Nominations { get; private set; } = default!;
+  public BeatmapSetNominationsSummary NominationSummary { get; private set; } = default!;
 
   /// <summary>
   /// The datetime at which this beatmapset was ranked, qualified, approved or loved. This will be null if the beatmapset has none of these statuses.
@@ -84,7 +86,7 @@ public class BeatmapSetExtended : BeatmapSet
   public bool HasStoryboard { get; private set; }
 
   /// <summary>
-  /// The datetime at which this beatmapset was submitted to the osu! servers.
+  /// The datetime at which this beatmapset was submitted to the osu! servers. This may be null.
   /// </summary>
   [JsonProperty("submitted_date")]
   public DateTimeOffset? SubmittedDate { get; private set; }
@@ -96,9 +98,15 @@ public class BeatmapSetExtended : BeatmapSet
   [JsonConverter(typeof(StringArrayConverter))]
   public string[] Tags { get; private set; } = default!;
 
+  #endregion
+
+  #region Optional Attributes
+
   /// <summary>
-  /// The beatmaps belonging to this beatmapset. This may be null.
+  /// The beatmaps belonging to this beatmapset. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("beatmaps")]
   public new BeatmapExtended[]? Beatmaps { get; private set; }
+
+  #endregion
 }

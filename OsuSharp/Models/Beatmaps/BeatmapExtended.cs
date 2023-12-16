@@ -13,10 +13,12 @@ namespace OsuSharp.Models.Beatmaps;
 /// The API differs between normal beatmaps and extended beatmaps, as not all information is available on all endpoints.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapextended"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmap-extended-json.ts"/>
 /// </summary>
 public class BeatmapExtended : Beatmap
 {
+  #region Default Attributes
+
   /// <summary>
   /// The overall difficulty (OD) of this beatmap.
   /// </summary>
@@ -36,7 +38,8 @@ public class BeatmapExtended : Beatmap
   public float BPM { get; private set; }
 
   /// <summary>
-  /// Bool whether this beatmap is converted from a different ruleset or not. This may be null.
+  /// Bool whether this beatmap is converted from a different ruleset or not.
+  /// TODO: Why can this be null? Its not optional
   /// </summary>
   [JsonProperty("convert")]
   public bool? Convert { get; private set; }
@@ -113,8 +116,14 @@ public class BeatmapExtended : Beatmap
   [JsonProperty("url")]
   public string Url { get; private set; } = default!;
 
+  #endregion
+
+  #region Optional Attributes
+
   /// <summary>
-  /// The beatmap set this beatmap belongs to. This property is null if the beatmap does not have an associated beatmap set.
+  /// The beatmapset this beatmap belongs to. This is an optional property and may be null.
   /// </summary>
   public new BeatmapSetExtended? Set { get; private set; }
+
+  #endregion
 }

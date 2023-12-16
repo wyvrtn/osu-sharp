@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 namespace OsuSharp.Models.Beatmaps;
 
 /// <summary>
-/// Represents the hype progress of a beatmapset.
+/// Represents the nomination progress of a beatmapset.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapsetextended"/><br/>
 /// Source: <a href=""/>
 /// </summary>
-public class Hypes
+public class BeatmapSetNominationsSummary
 {
   /// <summary>
-  /// The amount of hypes this beatmapset currently has.
+  /// The amount of nominations this beatmapset currently has.
   /// </summary>
   [JsonProperty("current")]
   public int Current { get; private set; }
 
   /// <summary>
-  /// The amount of hypes this beatmapset requires to be eligible for ranking.
+  /// The amount nominations the beatmapset requires to be qualified for ranking.
   /// </summary>
   [JsonProperty("required")]
   public int Required { get; private set; }
