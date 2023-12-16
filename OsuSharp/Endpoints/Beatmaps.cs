@@ -11,15 +11,15 @@ using System.Web;
 
 namespace OsuSharp;
 
-// https://osu.ppy.sh/docs/index.html#beatmaps
-
 public partial class OsuApiClient
 {
+  // API docs: https://osu.ppy.sh/docs/index.html#beatmaps
+
   /// <summary>
   /// Looksup the beatmap with the specified MD5 checksum from the osu! API v2.
   /// If the beatmap is not found, null is returned.
-  /// 
-  /// https://osu.ppy.sh/docs/index.html#lookup-beatmap
+  /// <br/><br/>
+  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
   /// </summary>
   /// <param name="checksum">The MD5 checksum of the beatmap.</param>
   /// <returns>The beatmap or null, if no beatmap was found.</returns>
@@ -27,8 +27,9 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Looksup the beatmap with the specified filename from the osu! API v2.
-  /// 
-  /// https://osu.ppy.sh/docs/index.html#lookup-beatmap
+  /// If the beatmap is not found, null is returned.
+  /// <br/><br/>
+  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
   /// </summary>
   /// <param name="checksum">The filename of the beatmap.</param>
   /// <returns>The beatmap or null, if no beatmap was found.</returns>
@@ -36,8 +37,9 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Looksup the beatmap with the specified ID from the osu! API v2.
-  /// 
-  /// https://osu.ppy.sh/docs/index.html#lookup-beatmap
+  /// If the beatmap is not found, null is returned.
+  /// <br/><br/>
+  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
   /// </summary>
   /// <param name="beatmapId">The beatmap ID.</param>
   /// <returns>The beatmap or null, if no beatmap was found.</returns>
@@ -45,8 +47,9 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Looksup the beatmap with the specified query parameter from the osu! API v2.
-  /// 
-  /// https://osu.ppy.sh/docs/index.html#lookup-beatmap
+  /// If the beatmap is not found, null is returned.
+  /// <br/><br/>
+  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
   /// </summary>
   /// <param name="param">The query parameter.</param>
   /// <returns>The beatmap or null, if no beatmap was found.</returns>
@@ -58,9 +61,9 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Gets the best user score for the specified mods on the specified beatmap in the specified ruleset from the osu! API v2.
-  /// 
-  /// NOTE: As per API docs, the mods parameter is not implemented yet.
-  /// https://osu.ppy.sh/docs/index.html#get-a-user-beatmap-score
+  /// <br/><br/>
+  /// NOTE: As per API docs, the mods parameter is not implemented yet.<br/>
+  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-a-user-beatmap-score"/>
   /// </summary>
   /// <param name="beatmapId">The ID of the beatmap to receive the score of.</param>
   /// <param name="userId">The ID of the user to receive the score of.</param>
@@ -82,8 +85,8 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Gets the beatmap with the specified ID from the osu! API v2.
-  /// 
-  /// https://osu.ppy.sh/docs/index.html#get-beatmap
+  /// <br/><br/>
+  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-beatmap"/>
   /// </summary>
   /// <param name="id">The ID of the beatmap.</param>
   /// <returns>The beatmap or null, if no beatmap was found.</returns>

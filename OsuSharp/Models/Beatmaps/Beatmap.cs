@@ -12,11 +12,12 @@ namespace OsuSharp.Models.Beatmaps;
 
 /// <summary>
 /// Represents a beatmap, as returned by the osu! API v2.
-/// 
-/// https://osu.ppy.sh/docs/index.html#beatmap
 /// </summary>
 public class Beatmap
 {
+  // API docs: https://osu.ppy.sh/docs/index.html#beatmap
+  // source: https://github.com/ppy/osu-web/blob/c617d3455315939c019d5bd3a9a88b18b630a28f/resources/js/interfaces/beatmap-json.ts
+
   /// <summary>
   /// The ID of the beatmapset this beatmap belongs to.
   /// </summary>

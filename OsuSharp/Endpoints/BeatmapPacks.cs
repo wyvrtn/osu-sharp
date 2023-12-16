@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace OsuSharp;
 
-// https://osu.ppy.sh/docs/index.html#beatmap-packs
-
 public partial class OsuApiClient
 {
+  // API docs: https://osu.ppy.sh/docs/index.html#beatmap-packs
+
   /// <summary>
   /// Fetches all beatmap packs with the specified type from the osu! API v2 and returns an asynchronous enumerable,
   /// allowing to lazily enumerate through all beatmap packs, performing further pagination requests as necessary.
-  /// 
-  /// NOTE: This endpoint does not provide support for targetting a specific page directly per API design.
-  /// https://osu.ppy.sh/docs/index.html#get-beatmap-packs
+  /// <br/><br/>
+  /// NOTE: This endpoint does not provide support for targetting a specific page directly per API design.<br/>
+  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-beatmap-packs"/>
   /// </summary>
   /// <returns>An asynchronous enumerable for lazily enumerating over the beatmap packs.</returns>
   public async IAsyncEnumerable<BeatmapPack> GetBeatmapPacksAsync(BeatmapPackType type = BeatmapPackType.Standard)
@@ -51,8 +51,8 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Gets the beatmap pack with the specified tag from the osu! API v2.
-  /// 
-  /// https://osu.ppy.sh/docs/index.html#get-beatmap-pack
+  /// <br/><br/>
+  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-beatmap-pack"/>
   /// </summary>
   /// <returns>The beatmap pack with the specified tag.</returns>
   public async Task<BeatmapPack> GetBeatmapPackAsync(string tag)

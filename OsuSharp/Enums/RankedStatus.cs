@@ -8,6 +8,9 @@ namespace OsuSharp.Enums;
 
 /// <summary>
 /// An enum containing the rank statuses a beatmap can have.
+/// <br/><br/>
+/// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapset-rank-status"/><br/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-json.ts"/>
 /// </summary>
 public enum RankedStatus
 {

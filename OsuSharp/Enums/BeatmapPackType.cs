@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace OsuSharp.Enums;
 
+
 /// <summary>
 /// An enum containing the type of beatmap packs that exist.
+/// <br/><br/>
+/// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmappacktype"/><br/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/app/Models/BeatmapPack.php#L36"/>
 /// </summary>
 public enum BeatmapPackType
 {
