@@ -143,13 +143,13 @@ public class BeatmapSet
   /// Info about the availability of this beatmapset. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("availability")]
-  public BeatmapSetAvailability? Availability { get; private set; }
+  public Availability? Availability { get; private set; }
 
   /// <summary>
   /// The beatmaps belonging to this beatmapset. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("beatmaps")]
-  public Beatmap[]? Beatmaps { get; private set; }
+  public Beatmap[]? Beatmaps { get; internal set; }
 
   /// <summary>
   /// The mode-converted version of the beatmaps belonging to this beatmapset. This is an optional property and may be null.

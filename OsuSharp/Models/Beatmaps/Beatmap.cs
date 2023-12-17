@@ -79,7 +79,7 @@ public class Beatmap
   /// <summary>
   /// The beatmapset this beatmap belongs to. This is an optional property and may be null.
   /// </summary>
-  public BeatmapSet? Set { get; private set; }
+  public BeatmapSet? Set { get; internal set; }
 
   /// <summary>
   /// The MD5 checksum of the .osu file representing this beatmap. This is an optional property and may be null.

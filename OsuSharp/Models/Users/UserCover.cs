@@ -11,7 +11,7 @@ namespace OsuSharp.Models.Users;
 /// Represents the cover of a user.
 /// <br/><br/>
 /// API docs: Not documented, refer to source<br/>
-/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/user-cover-json.ts#L4"/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/user-cover-json.ts"/>
 /// </summary>
 public class UserCover
 {

@@ -13,7 +13,7 @@ namespace OsuSharp.Models.Beatmaps;
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#beatmapsetextended"/><br/>
 /// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/beatmapset-json.ts"/>
 /// </summary>
-public class BeatmapSetAvailability
+public class Availability
 {
   /// <summary>
   /// Bool whether the beatmapset is available for download or not.

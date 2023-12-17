@@ -101,13 +101,89 @@ public class User
   [JsonProperty("account_history")]
   public AccountHistoryEntry? AccountHistory { get; private set; }
 
-  public ProfileBanner
+  /// <summary>
+  /// TODO: what is this? i thought it might be the "main" one or if its just one
+  /// but flary for example got the USA one and this is still null (banners array is not)
+  /// </summary>
+  [JsonProperty("active_tournament_banner")]
+  public ProfileBanner? ActiveBanner { get; private set; }
+
+  /// <summary>
+  /// The tournament banners of this user. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("active_tournament_banners")]
+  public ProfileBanner? Banners { get; private set; }
+
+  /// <summary>
+  /// The badges of this user. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("badges")]
+  public Badge[]? Badges { get; private set; }
+
+  /// <summary>
+  /// The amount of "most played beatmap" entries this user has. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("beatmap_playcounts_count")]
+  public int? MostPlayedCount { get; private set; }
+
+  /// <summary>
+  /// The relations to users this user blocked. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("blocks")]
+  public UserRelation[]? Blocks { get; private set; }
+
+  /// <summary>
+  /// TODO: what is this?
+  /// </summary>
+  [JsonProperty("comments_count")]
+  public int? CommentsCount { get; private set; }
+
+  /// <summary>
+  /// The country of this user. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("country")]
+  public Country? Country { get; private set; }
 
   /// <summary>
   /// The cover of this user. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("cover")]
   public UserCover? Cover { get; private set; }
+
+  /// <summary>
+  /// The amount of favourited beatmapsets this user has. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("favourite_beatmapset_count")]
+  public int? FavouriteBeatmapSetsCount { get; private set; }
+
+  /// <summary>
+  /// TODO: What is this?
+  /// </summary>
+  [JsonProperty("follow_user_mapping")]
+  public int[]? FollowUserMapping { get; private set; }
+
+  /// <summary>
+  /// The amount of followers this user has. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("follower_count")]
+  public int? FollowerCount { get; private set; }
+
+  /// <summary>
+  /// The relations to users this user friended. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("friends")]
+  public UserRelation[]? Friends { get; private set; }
+
+  /// <summary>
+  /// The amount of graveyarded beatmapsets this user has. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("graveyard_beatmapset_count")]
+  public int? GraveyardedBeatmapSetsCount { get; private set; }
+
+  /// <summary>
+  /// TODO: what is this?
+  /// </summary>
+  public Group[]? Groups { get; private set; }
 
   #endregion
 }

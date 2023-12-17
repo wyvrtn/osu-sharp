@@ -120,10 +120,19 @@ public class BeatmapExtended : Beatmap
 
   #region Optional Attributes
 
+  private BeatmapSetExtended? _set;
   /// <summary>
   /// The beatmapset this beatmap belongs to. This is an optional property and may be null.
   /// </summary>
-  public new BeatmapSetExtended? Set { get; private set; }
+  public new BeatmapSetExtended? Set
+  {
+    get => _set;
+    private set
+    {
+      _set = value;
+      base.Set = value;
+    }
+  }
 
   #endregion
 }

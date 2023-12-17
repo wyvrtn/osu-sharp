@@ -96,11 +96,21 @@ public class BeatmapSetExtended : BeatmapSet
 
   #region Optional Attributes
 
+  private BeatmapExtended[]? _beatmaps;
+
   /// <summary>
   /// The beatmaps belonging to this beatmapset. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("beatmaps")]
-  public new BeatmapExtended[]? Beatmaps { get; private set; }
+  public new BeatmapExtended[]? Beatmaps
+  {
+    get => _beatmaps;
+    private set
+    {
+      _beatmaps = value;
+      base.Beatmaps = value;
+    }
+  }
 
   #endregion
 }
