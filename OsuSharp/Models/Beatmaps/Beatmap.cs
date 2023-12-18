@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using OsuSharp.Converters;
 using OsuSharp.Enums;
 using OsuSharp.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OsuSharp.Models.Beatmaps;
 
@@ -79,17 +74,20 @@ public class Beatmap
   /// <summary>
   /// The beatmapset this beatmap belongs to. This is an optional property and may be null.
   /// </summary>
+  [JsonProperty("beatmapset")]
   public BeatmapSet? Set { get; internal set; }
 
   /// <summary>
   /// The MD5 checksum of the .osu file representing this beatmap. This is an optional property and may be null.
   /// </summary>
+  [JsonProperty("checksum")]
   public string? Checksum { get; private set; }
 
   /// <summary>
   /// The amount of times players have exited of failed the beatmap at a certain percentage. This is an optional property and may be null.
   /// </summary>
-  public Failtimes[]? Failtimes { get; private set; }
+  [JsonProperty("failtimes")]
+  public Failtimes? Failtimes { get; private set; }
 
   /// <summary>
   /// The maximum achievable combo on this beatmap. This is an optional property and may be null.
@@ -100,6 +98,7 @@ public class Beatmap
   /// <summary>
   /// The creator of this beatmap. This is an optional property and may be null.
   /// </summary>
+  [JsonProperty("creator")]
   public User? Creator { get; private set; }
 
   #endregion

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OsuSharp.Models;
 using OsuSharp.Models.Responses;
 using System.Net;
@@ -89,22 +90,49 @@ public partial class OsuApiClient
   /// </summary>
   /// <typeparam name="T">The type to parse the JSON in the response into.</typeparam>
   /// <param name="url">The request URL.</param>
+  /// <param name="jsonSelector">Optional. A selector for the base JSON, allowing to parse a sub-property of the JSON object.</param>
   /// <returns></returns>
-  private async Task<T?> GetFromJsonAsync<T>(string url)
+  private async Task<T?> GetFromJsonAsync<T>(string url, Func<JObject, JToken?>? jsonSelector = null, HttpMethod? method = null)
   {
+    // Ensure a valid access token.
+    await EnsureAccessTokenAsync();
+
     try
     {
       // Send the request, and validate the response. If 404 is returned, return null.
-      var response = await _http.GetAsync(url);
+      var response = await _http.SendAsync(new HttpRequestMessage(method ?? HttpMethod.Get, url));
       if (response.StatusCode == HttpStatusCode.NotFound)
         return default;
+
+      // If a json selector is specified, parse the JSON in the response into a JObject and select the specified token.
+      if (jsonSelector is not null)
+      {
+        // Parse the JSON, select the token and check whether the token was found. If not, return null.
+        JObject obj = JObject.Parse(await response.Content.ReadAsStringAsync());
+        JToken? o = jsonSelector(obj);
+        if (o is null)
+          return default;
+
+        // Otherwise, try to parse the token into the specified type and return it.
+        return o.ToObject<T>();
+      }
 
       // Parse the JSON in the response into the specified type and return it.
       return JsonConvert.DeserializeObject<T?>(await response.Content.ReadAsStringAsync());
     }
     catch (Exception ex)
     {
-      throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response to type `{typeof(T).Name}`.", ex);
+      throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response as `{typeof(T).Name}`.", ex);
     }
+  }
+
+  /// <summary>
+  /// Constructs a query parameter string from the specified parameters, where all parameters with a null value are ignored.
+  /// </summary>
+  /// <param name="parameters">The parameters.</param>
+  /// <returns>The query parameter string.</returns>
+  private string BuildQueryString(List<(string Key, string? Value)> parameters)
+  {
+    return string.Join("&", parameters.Where(x => x.Value is not null).Select(x => $"{x.Key}={x.Value}"));
   }
 }

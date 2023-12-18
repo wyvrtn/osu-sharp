@@ -4,25 +4,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OsuSharp.Enums;
 
 namespace OsuSharp.Converters;
 
 /// <summary>
-/// A <see cref="JsonConverter"/> to convert strings to elements separated by a space to string arrays and vice versa.
+/// A <see cref="JsonConverter"/> to convert strings to a <see cref="Grade"/> and vice versa.
 /// </summary>
-public class StringArrayConverter : JsonConverter
+public class GradeConverter : JsonConverter
 {
   public override bool CanConvert(Type objectType)
   {
     // Only allow string arrays to be converted.
-    return objectType.Equals(typeof(string[]));
+    return objectType.Equals(typeof(string));
   }
 
   public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
   {
     // If the value is a string and not null, convert it into a string array.
     if (reader.TokenType == JsonToken.String && reader.Value is not null)
-      return reader.Value.ToString()!.Split(' ');
+      switch (reader.Value.ToString())
+      {
+        case "XH":
+        case "SSH":
+          return Grade.XH;
+        case "SH":
+          return Grade.SH;
+        case "X":
+        case "SS":
+          return Grade.X;
+        case "S":
+          return Grade.S;
+        case "A":
+          return Grade.A;
+        case "B":
+          return Grade.B;
+        case "C":
+          return Grade.C;
+        case "D":
+          return Grade.D;
+        default:
+          throw new JsonSerializationException($"Unable to convert '{reader.Value}' into a grade.");
+      }
 
     // If the value is not valid, throw an exception.
     throw new JsonSerializationException($"Unable to convert '{reader.Value}' into a string array.");

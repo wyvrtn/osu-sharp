@@ -15,15 +15,15 @@ namespace OsuSharp.Models.Beatmaps;
 /// </summary>
 public class Hypes
 {
-  /// <summary>
-  /// The amount of hypes this beatmapset currently has.
-  /// </summary>
-  [JsonProperty("current")]
-  public int Current { get; private set; }
+    /// <summary>
+    /// The amount of hypes this beatmapset currently has.
+    /// </summary>
+    [JsonProperty("current")]
+    public int Current { get; private set; }
 
-  /// <summary>
-  /// The amount of hypes this beatmapset requires to be eligible for ranking.
-  /// </summary>
-  [JsonProperty("required")]
-  public int Required { get; private set; }
+    /// <summary>
+    /// The amount of hypes this beatmapset requires to be eligible for ranking.
+    /// </summary>
+    [JsonProperty("required")]
+    public int Required { get; private set; }
 }

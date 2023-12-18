@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OsuSharp.Models.Beatmaps;
+namespace OsuSharp.Models.Discussions;
 
 /// <summary>
 /// Represents the voters of a discussion on a beatmapset.
@@ -15,15 +15,15 @@ namespace OsuSharp.Models.Beatmaps;
 /// </summary>
 public class DiscussionVoters
 {
-  /// <summary>
-  /// TODO: What is this? User ids of the users thet voted?
-  /// </summary>
-  [JsonProperty("down")]
-  public int[] Down { get; private set; } = default!;
+    /// <summary>
+    /// TODO: What is this? User ids of the users thet voted?
+    /// </summary>
+    [JsonProperty("down")]
+    public int[] Down { get; private set; } = default!;
 
-  /// <summary>
-  /// TODO: What is this? User ids of the users thet voted?
-  /// </summary>
-  [JsonProperty("up")]
-  public int[] Up { get; private set; } = default!;
+    /// <summary>
+    /// TODO: What is this? User ids of the users thet voted?
+    /// </summary>
+    [JsonProperty("up")]
+    public int[] Up { get; private set; } = default!;
 }

@@ -14,5 +14,5 @@ namespace OsuSharp.Models.Beatmaps;
 /// </summary>
 public class BeatmapSetEvent
 {
-  // TODO: Implement lol
+    // TODO: Implement lol
 }

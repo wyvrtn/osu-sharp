@@ -1,12 +1,8 @@
-﻿using Newtonsoft.Json;
-using OsuSharp.Enums;
+﻿using OsuSharp.Enums;
 using OsuSharp.Models.Beatmaps;
-using OsuSharp.Models.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OsuSharp.Models.Scores;
+using OsuSharp.Models.Users;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace OsuSharp;
@@ -16,83 +12,163 @@ public partial class OsuApiClient
   // API docs: https://osu.ppy.sh/docs/index.html#beatmaps
 
   /// <summary>
-  /// Looksup the beatmap with the specified MD5 checksum.
-  /// If the beatmap is not found, null is returned.
+  /// Looks up the beatmap with the specified MD5 checksum. If the beatmap was not found, null is returned.
   /// <br/><br/>
-  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
+  /// API notes:<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
   /// </summary>
   /// <param name="checksum">The MD5 checksum of the beatmap.</param>
-  /// <returns>The beatmap or null, if no beatmap was found.</returns>
-  public async Task<Beatmap?> LookupBeatmapChecksum(string checksum) => await LookupBeatmapInternal($"checksum={HttpUtility.UrlEncode(checksum)}");
+  /// <returns>The beatmap or null, if the beatmap was not found.</returns>
+  public async Task<Beatmap?> LookupBeatmapChecksumAsync(string checksum) => await LookupBeatmapInternalAsync($"checksum={HttpUtility.UrlEncode(checksum)}");
 
   /// <summary>
-  /// Looksup the beatmap with the specified filename.
-  /// If the beatmap is not found, null is returned.
+  /// Looks up the beatmap with the specified filename. If the beatmap was not found, null is returned.
   /// <br/><br/>
-  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
+  /// API notes:<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
   /// </summary>
   /// <param name="checksum">The filename of the beatmap.</param>
-  /// <returns>The beatmap or null, if no beatmap was found.</returns>
-  public async Task<Beatmap?> LookupBeatmapFilename(string filename) => await LookupBeatmapInternal($"filename={HttpUtility.UrlEncode(filename)}");
+  /// <returns>The beatmap or null, if the beatmap was not found.</returns>
+  public async Task<Beatmap?> LookupBeatmapFilenameAsync(string filename) => await LookupBeatmapInternalAsync($"filename={HttpUtility.UrlEncode(filename)}");
 
   /// <summary>
-  /// Looksup the beatmap with the specified ID.
-  /// If the beatmap is not found, null is returned.
+  /// Looks up the beatmap with the specified ID. If the beatmap was not found, null is returned.
   /// <br/><br/>
-  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
+  /// API notes:<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
   /// </summary>
   /// <param name="beatmapId">The beatmap ID.</param>
-  /// <returns>The beatmap or null, if no beatmap was found.</returns>
-  public async Task<Beatmap?> LookupBeatmapId(int beatmapId) => await LookupBeatmapInternal($"id={beatmapId}");
+  /// <returns>The beatmap or null, if the beatmap was not found.</returns>
+  public async Task<Beatmap?> LookupBeatmapIdAsync(int beatmapId) => await LookupBeatmapInternalAsync($"id={beatmapId}");
 
   /// <summary>
-  /// Looksup the beatmap with the specified query parameter.
-  /// If the beatmap is not found, null is returned.
+  /// Looks up the beatmap with the specified query parameter. If the beatmap was not found, null is returned.
   /// <br/><br/>
-  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
+  /// API notes:<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
   /// </summary>
   /// <param name="param">The query parameter.</param>
-  /// <returns>The beatmap or null, if no beatmap was found.</returns>
-  private async Task<Beatmap?> LookupBeatmapInternal(string param)
+  /// <returns>The beatmap or null, if the beatmap was not found.</returns>
+  private async Task<Beatmap?> LookupBeatmapInternalAsync(string param)
   {
     // Send the request and return the beatmap object.
     return await GetFromJsonAsync<Beatmap>($"beatmaps/lookup?{param}");
   }
 
   /// <summary>
-  /// Gets the best user score for the specified mods on the specified beatmap in the specified ruleset.
+  /// Gets the best score of the specified user with the specified mods on the specified beatmap in the specified ruleset. If the beatmap, user or score was not found, null is returned.
   /// <br/><br/>
-  /// NOTE: As per API docs, the mods parameter is not implemented yet.<br/>
-  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-a-user-beatmap-score"/>
+  /// API notes:<br/>
+  /// The mods parameter is not implemented yet.<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-a-user-beatmap-score"/>
   /// </summary>
   /// <param name="beatmapId">The ID of the beatmap to receive the score of.</param>
   /// <param name="userId">The ID of the user to receive the score of.</param>
   /// <param name="ruleset">Optional. The ruleset in which the score was set.</param>
   /// <param name="mods">Optional. The mods applied to the score.</param>
-  /// <returns>The beatmap user score or null, if no score was found.</returns>
-  public async Task<BeatmapUserScore?> GetUserBeatmapScore(int beatmapId, int userId, Ruleset? ruleset = null, string? mods = null)
+  /// <returns>The beatmap user score or null, if the beatmap, user or score was not found.</returns>
+  public async Task<UserBeatmapScore?> GetUserBeatmapScoreAsync(int beatmapId, int userId, Ruleset? ruleset = null, string? mods = null)
   {
     // Build the query parameters.
-    string query = "";
-    if (ruleset is not null)
-      query += $"&ruleset={ruleset.Value}";
-    if (mods is not null)
-      query += $"&mods={mods}";
+    string query = BuildQueryString(new()
+    {
+      ("mode", ruleset?.ToString()),
+      ("mods", mods)
+    });
 
     // Send the request and return the score object.
-    return await GetFromJsonAsync<BeatmapUserScore>($"beatmaps/{beatmapId}/scores/users/{userId}?{query}");
+    return await GetFromJsonAsync<UserBeatmapScore>($"beatmaps/{beatmapId}/scores/users/{userId}?{query}");
+  }
+
+  /// <summary>
+  /// Gets all scores of the specified user on the specified beatmap in the specified ruleset. If the beatmap or user was not found, null is returned.
+  /// <br/><br/>
+  /// API notes:<br/>
+  /// The mods parameter is not implemented yet.<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-a-user-beatmap-scores"/>
+  /// </summary>
+  /// <param name="beatmapId">The ID of the beatmap to receive the score of.</param>
+  /// <param name="userId">The ID of the user to receive the score of.</param>
+  /// <param name="ruleset">Optional. The ruleset in which the score was set.</param>
+  /// <returns>The beatmap user score or null, if the beatmap or user was not found.</returns>
+  public async Task<Score[]?> GetUserBeatmapScoresAsync(int beatmapId, int userId, Ruleset? ruleset = null)
+  {
+    // Build the query parameters.
+    string query = BuildQueryString(new()
+    {
+      ("mode", ruleset?.ToString())
+    });
+
+    // Send the request and return the score objects.
+    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores/users/{userId}/all?{query}", x => x["scores"]);
+  }
+
+  /// <summary>
+  /// Gets all scores on the specified beatmap in the specified ruleset. If the beatmap or user was not found, null is returned.
+  /// <br/><br/>
+  /// API notes:<br/>
+  /// Includes <see cref="Score.User"/>, which includes <see cref="User.Country"/> and <see cref="User.Cover"/>.<br/>
+  /// The mods parameter is not implemented yet.<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-a-user-beatmap-scores"/>
+  /// </summary>
+  /// <param name="beatmapId">The ID of the beatmap to receive the score of.</param>
+  /// <param name="ruleset">Optional. The ruleset in which the score was set.</param>
+  /// <returns>The beatmap user score or null, if the beatmap or user was not found.</returns>
+  public async Task<Score[]?> GetBeatmapScoresAsync(int beatmapId, Ruleset? ruleset = null, string? mods = null)
+  {
+    // Build the query parameters.
+    string query = BuildQueryString(new()
+    {
+      ("mode", ruleset?.ToString()),
+      ("mods", mods)
+    });
+
+    // Send the request and return the score objects.
+    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores?{query}", x => x["scores"]);
+  }
+
+  /// <summary>
+  /// Gets all beatmaps with the specified IDs, up to 50.
+  /// <br/><br/>
+  /// API notes:<br/>
+  /// Includes <see cref="BeatmapExtended.Set"/> (including <see cref="BeatmapSet.Ratings"/>), <see cref="Beatmap.Failtimes"/> and <see cref="Beatmap.MaxCombo"/>.<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-beatmap"/>
+  /// </summary>
+  /// <param name="ids">The IDs of the beatmaps.</param>
+  /// <returns>The beatmaps.</returns>
+  public async Task<BeatmapExtended[]> GetBeatmapsAsync(params int[] ids)
+  {
+    // Send the request and return the beatmap objects.
+    return (await GetFromJsonAsync<BeatmapExtended[]>($"beatmaps?{string.Join("&", ids.Select(x => $"ids[]={x}"))}", x => x["beatmaps"]))!;
   }
 
   /// <summary>
   /// Gets the beatmap with the specified ID.
+  /// If the beatmap was not found, null is returned.
   /// <br/><br/>
-  /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-beatmap"/>
+  /// API notes:<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-beatmap"/>
   /// </summary>
   /// <param name="id">The ID of the beatmap.</param>
-  /// <returns>The beatmap or null, if no beatmap was found.</returns>
-  public async Task<Beatmap?> GetBeatmap(int id)
+  /// <returns>The beatmap or null, if the beatmap was not found.</returns>
+  public async Task<BeatmapExtended?> GetBeatmapAsync(int id)
   {
     // Send the request and return the beatmap object.
-    return await GetFromJsonAsync<Beatmap>($"beatmaps/{id}");
+    return await GetFromJsonAsync<BeatmapExtended>($"beatmaps/{id}");
+  }
+
+  /// <summary>
+  /// Gets the beatmap with the specified ID.
+  /// If the beatmap was not found, null is returned.
+  /// <br/><br/>
+  /// API notes:<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-beatmap"/>
+  /// </summary>
+  /// <param name="id">The ID of the beatmap.</param>
+  /// <returns>The difficulty attributes or null, if the beatmap was not found.</returns>
+  public async Task<DifficultyAttributes?> GetDifficultyAttributesAsync(int id)
+  {
+    // Send the request and return the difficulty attributes object.
+    return await GetFromJsonAsync<DifficultyAttributes>($"beatmaps/{id}/attributes", x => x["attributes"], HttpMethod.Post);
   }
 }

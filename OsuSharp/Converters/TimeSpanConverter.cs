@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 namespace OsuSharp.Converters;
 
 /// <summary>
-/// A <see cref="JsonConverter"/> to convert integers representing seconds to time spans and vice versa.
+/// A <see cref="JsonConverter"/> to convert integers representing seconds to a <see cref="TimeSpan"/> and vice versa.
 /// </summary>
-/// <typeparam name="T"></typeparam>
 public class TimeSpanConverter : JsonConverter
 {
   public override bool CanConvert(Type objectType)
@@ -22,8 +21,8 @@ public class TimeSpanConverter : JsonConverter
   public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
   {
     // If the value is an integer and not null, convert it into a timespan.
-    if (reader.TokenType == JsonToken.String && reader.Value is not null)
-      return TimeSpan.FromSeconds((int)reader.Value);
+    if (reader.TokenType == JsonToken.Integer && reader.Value is not null)
+      return TimeSpan.FromSeconds((long)reader.Value);
 
     // If the value is not valid, throw an exception.
     throw new JsonSerializationException($"Unable to convert '{reader.Value}' into a timespan.");

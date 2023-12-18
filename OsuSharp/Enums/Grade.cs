@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace OsuSharp.Enums;
 
 /// <summary>
-/// An enum containing the ranks a score can have. (XH, SH, X, S, A, B, C, D)
+/// An enum containing the grades a score can have. (XH, SH, X, S, A, B, C, D)
 /// <br/><br/>
 /// Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/rank.ts"/>
 /// </summary>
-public enum Rank
+public enum Grade
 {
   /// <summary>
   /// 100% accuracy, Hidden and/or Flashlight mod.

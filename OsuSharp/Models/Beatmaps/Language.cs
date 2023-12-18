@@ -14,13 +14,13 @@ namespace OsuSharp.Models.Beatmaps;
 /// </summary>
 public class Language
 {
-  /// <summary>
-  /// The ID of this language. This may be null.
-  /// </summary>
-  public int? Id { get; internal set; }
+    /// <summary>
+    /// The ID of this language. This may be null.
+    /// </summary>
+    public int? Id { get; internal set; }
 
-  /// <summary>
-  /// The name of this language.
-  /// </summary>
-  public string Name { get; internal set; } = default!;
+    /// <summary>
+    /// The name of this language.
+    /// </summary>
+    public string Name { get; internal set; } = default!;
 }

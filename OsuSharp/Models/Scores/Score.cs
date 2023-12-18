@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using OsuSharp.Converters;
 using OsuSharp.Enums;
 using OsuSharp.Models.Beatmaps;
 using OsuSharp.Models.Users;
@@ -31,7 +32,7 @@ public class Score
   /// The ID of the best score the player of this score achieved on the beatmap.
   /// </summary>
   [JsonProperty("best_id")]
-  public int BestId { get; private set; }
+  public long BestId { get; private set; }
 
   /// <summary>
   /// The datetime at which this score was submitted to the osu! servers.
@@ -43,7 +44,7 @@ public class Score
   /// The ID of this score.
   /// </summary>
   [JsonProperty("id")]
-  public int Id { get; private set; }
+  public long Id { get; private set; }
 
   /// <summary>
   /// The maximum combo achieved in this score.
@@ -83,11 +84,11 @@ public class Score
   public float PP { get; private set; }
 
   /// <summary>
-  /// The rank of this score. (XH, X, SH, S, A, B, C, D)
+  /// The grade of this score. (XH, X, SH, S, A, B, C, D)
   /// </summary>
   [JsonProperty("rank")]
-  [JsonConverter(typeof(StringEnumConverter))]
-  public Rank Rank { get; private set; }
+  [JsonConverter(typeof(GradeConverter))]
+  public Grade Grade { get; private set; }
 
   /// <summary>
   /// Bool whether the replay of this score is available on the osu! servers.
