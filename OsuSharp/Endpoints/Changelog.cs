@@ -14,7 +14,7 @@ public partial class OsuApiClient
   /// <summary>
   /// Gets the build by its specified version in the specified update stream. If the build was not found, null is returned.<br/>
   /// For the update stream, the <see cref="UpdateStream.Name"/> needs to be specified (e.g. "stable40", "beta", ...).<br/>
-  /// For the version, the <see cref="Build.DisplayVersion"/> needs to be specified (e.g. "20231219.2").<br/>
+  /// For the version, the <see cref="Build.DisplayVersion"/> needs to be specified (e.g. "20231219.2").
   /// <br/><br/>
   /// API notes:<br/>
   /// Includes <see cref="Build.Changelog"/> (including <see cref="ChangelogEntry.GitHubUser"/>) and <see cref="Build.Versions"/>.<br/>
@@ -30,7 +30,7 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Gets the changelog listing of osu!, optionally using the specified filters.<br/>
+  /// Gets the changelog listing of osu!, optionally using the specified filters.
   /// <br/><br/>
   /// API notes:<br/>
   /// The amount of builds returned is always limited to 21 and sorted by most recent, regardless of the filters.<br/>
@@ -59,7 +59,7 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Looks up the build with the specified ID. If the build was not found, null is returned.<br/>
+  /// Looks up the build with the specified ID. If the build was not found, null is returned.
   /// <br/><br/>
   /// API notes:<br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#lookup-changelog-build"/>
@@ -73,7 +73,7 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Looks up the latest build of the specified update stream. If the update stream was not found, null is returned.<br/>
+  /// Looks up the latest build of the specified update stream. If the update stream was not found, null is returned.
   /// <br/><br/>
   /// API notes:<br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#lookup-changelog-build"/>

@@ -12,7 +12,7 @@ namespace OsuSharp.Models.Changelogs;
 /// of the osu! related software and all update streams with their latest build.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#get-changelog-listing"/><br/>
-/// Source: <a href=""/>
+/// Source: <a href="https://github.com/ppy/osu-web/blob/master/app/Http/Controllers/ChangelogController.php"/>
 /// </summary>
 public class ChangelogListing
 {

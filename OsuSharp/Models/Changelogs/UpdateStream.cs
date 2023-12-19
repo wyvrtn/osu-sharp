@@ -11,7 +11,9 @@ namespace OsuSharp.Models.Changelogs;
 /// Represents an update stream of an osu! related software to fetch updates from (Stable, Beta, CuttingEdge, Web...).
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#updatestream"/><br/>
-/// Source: <a href=""/>
+/// Sources:<br/>
+/// <a href="https://github.com/ppy/osu-web/blob/master/app/Models/UpdateStream.php"/><br/>
+/// <a href="https://github.com/ppy/osu-web/blob/master/app/Transformers/UpdateStreamTransformer.php"/>
 /// </summary>
 public class UpdateStream
 {
