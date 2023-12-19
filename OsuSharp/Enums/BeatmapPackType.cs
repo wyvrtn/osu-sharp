@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,35 +19,42 @@ public enum BeatmapPackType
   /// <summary>
   /// Targets all beatmap packs. ("S")
   /// </summary>
+  [Description("standard")]
   Standard,
 
   /// <summary>
   /// Targets all beatmap packs including featured artists. (F")
   /// </summary>
+  [Description("featured")]
   Featured,
 
   /// <summary>
   /// Targets all beatmap packs from tournaments. ("P")
   /// </summary>
+  [Description("tournament")]
   Tournament,
 
   /// <summary>
   /// Targets all beatmap packs containing loved beatmaps. ("L")
   /// </summary>
+  [Description("loved")]
   Loved,
 
   /// <summary>
   /// Targets all beatmap packs from the spotlights. ("R")
   /// </summary>
+  [Description("chart")]
   Chart,
 
   /// <summary>
   /// Targets all beatmap packs targetting a theme. ("T")
   /// </summary>
+  [Description("theme")]
   Theme,
 
   /// <summary>
   /// Targets all beatmap packs targetting an artist. ("A")
   /// </summary>
+  [Description("artist")]
   Artist
 }

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using OsuSharp.Converters;
 using OsuSharp.Converters;
 using OsuSharp.Enums;
 using OsuSharp.Models.Beatmaps;
@@ -56,7 +56,7 @@ public class Score
   /// The ruleset this score was achieved in.
   /// </summary>
   [JsonProperty("mode")]
-  [JsonConverter(typeof(StringEnumConverter))]
+  [JsonConverter(typeof(OsuSharp.Converters.StringEnumConverter))]
   public Ruleset Ruleset { get; private set; }
 
   /// <summary>

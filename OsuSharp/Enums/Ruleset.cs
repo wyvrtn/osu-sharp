@@ -18,21 +18,24 @@ public enum Ruleset
   /// <summary>
   /// The standard ruleset.
   /// </summary>
+  [Description("osu")]
   Osu,
 
   /// <summary>
   /// The taiko ruleset.
   /// </summary>
+  [Description("taiko")]
   Taiko,
 
   /// <summary>
   /// The catch the beat ruleset.
   /// </summary>
-  Fruits,
+  [Description("fruits")]
+  Catch,
 
   /// <summary>
   /// The mania ruleset.
   /// </summary>
-  /// 
+  [Description("mania")]
   Mania
 }

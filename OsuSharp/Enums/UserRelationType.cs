@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +18,12 @@ public enum UserRelationType
   /// <summary>
   /// The user blocked the other user.
   /// </summary>
+  [Description("block")]
   Block,
 
   /// <summary>
   /// The user friended the other user.
   /// </summary>
+  [Description("friend")]
   Friend
 }

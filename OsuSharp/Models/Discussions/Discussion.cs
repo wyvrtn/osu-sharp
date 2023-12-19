@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using OsuSharp.Converters;
 using OsuSharp.Enums;
 using OsuSharp.Models.Beatmaps;
 using System;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,20 +18,24 @@ public enum UserAccountHistoryEntryType
   /// <summary>
   /// The user account history entry represents a note.
   /// </summary>
+  [Description("note")]
   Note,
 
   /// <summary>
   /// The user account history entry represents a restriction.
   /// </summary>
+  [Description("restriction")]
   Restriction,
 
   /// <summary>
   /// The user account history entry represents a silence.
   /// </summary>
+  [Description("silence")]
   Silence,
 
   /// <summary>
   /// The user account history entry represents a tournament ban.
   /// </summary>
+  [Description("tournament_ban")]
   TournamentBan
 }

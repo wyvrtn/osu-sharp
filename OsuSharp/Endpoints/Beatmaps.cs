@@ -42,17 +42,17 @@ public partial class OsuApiClient
   public async Task<Beatmap?> LookupBeatmapIdAsync(int beatmapId) => await LookupBeatmapInternalAsync($"id={beatmapId}");
 
   /// <summary>
-  /// Looks up the beatmap with the specified query parameter. If the beatmap was not found, null is returned.
+  /// Looks up the beatmap with the specified query parameters. If the beatmap was not found, null is returned.
   /// <br/><br/>
   /// API notes:<br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#lookup-beatmap"/>
   /// </summary>
-  /// <param name="param">The query parameter.</param>
+  /// <param name="query">The query parameters.</param>
   /// <returns>The beatmap or null, if the beatmap was not found.</returns>
-  private async Task<Beatmap?> LookupBeatmapInternalAsync(string param)
+  private async Task<Beatmap?> LookupBeatmapInternalAsync(string query)
   {
     // Send the request and return the beatmap object.
-    return await GetFromJsonAsync<Beatmap>($"beatmaps/lookup?{param}");
+    return await GetFromJsonAsync<Beatmap>($"beatmaps/lookup?{query}");
   }
 
   /// <summary>

@@ -40,13 +40,13 @@ public class UpdateStream
   public string Name { get; private set; } = default!;
 
   /// <summary>
-  /// The latest build for this update stream. This will be null if this <see cref="UpdateStream"/> object is accessed as a property of a <see cref="Build"/> object.
+  /// The latest build for this update stream. This will be null if this <see cref="UpdateStream"/> object is accessed via <see cref="Build.UpdateStream"/>.
   /// </summary>
   [JsonProperty("latest_build")]
   public Build? LatestBuild { get; private set; }
 
   /// <summary>
-  /// The amount of online users currently using this update stream. This will be null if this <see cref="UpdateStream"/> object is accessed as a property of a <see cref="Build"/> object.
+  /// The amount of online users currently using this update stream. This will be null if this <see cref="UpdateStream"/> object is accessed via <see cref="Build.UpdateStream"/>.
   /// </summary>
   [JsonProperty("user_count")]
   public int? UserCount { get; private set; }

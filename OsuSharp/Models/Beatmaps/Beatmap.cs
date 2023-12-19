@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using OsuSharp.Converters;
 using OsuSharp.Converters;
 using OsuSharp.Enums;
 using OsuSharp.Models.Users;
@@ -38,14 +38,14 @@ public class Beatmap
   /// The ruleset this beatmap was made for.
   /// </summary>
   [JsonProperty("mode")]
-  [JsonConverter(typeof(StringEnumConverter))]
+  [JsonConverter(typeof(OsuSharp.Converters.StringEnumConverter))]
   public Ruleset Ruleset { get; private set; }
 
   /// <summary>
   /// The ranked status of this beatmap.
   /// </summary>
   [JsonProperty("status")]
-  [JsonConverter(typeof(StringEnumConverter))]
+  [JsonConverter(typeof(OsuSharp.Converters.StringEnumConverter))]
   public RankedStatus Status { get; private set; }
 
   /// <summary>

@@ -57,4 +57,32 @@ public partial class OsuApiClient
     // Send the request and return the changelog listing object.
     return (await GetFromJsonAsync<ChangelogListing>($"changelog?{query}"))!;
   }
+
+  /// <summary>
+  /// Looks up the build with the specified ID. If the build was not found, null is returned.<br/>
+  /// <br/><br/>
+  /// API notes:<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#lookup-changelog-build"/>
+  /// </summary>
+  /// <param name="buildId">The ID of the build.</param>
+  /// <returns>The build or null, if no build was found.</returns>
+  public async Task<Build?> LookupBuildIdAsync(int buildId)
+  {
+    // Send the request and return the build object.
+    return await GetFromJsonAsync<Build>($"changelog/{buildId}?key=id");
+  }
+
+  /// <summary>
+  /// Looks up the latest build of the specified update stream. If the update stream was not found, null is returned.<br/>
+  /// <br/><br/>
+  /// API notes:<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#lookup-changelog-build"/>
+  /// </summary>
+  /// <param name="stream">The name of the update stream (e.g. "stable40", "lazer", ...).</param>
+  /// <returns>The build or null, if no update stream was found.</returns>
+  public async Task<Build?> LookupLatestBuildAsync(string stream)
+  {
+    // Send the request and return the build object.
+    return await GetFromJsonAsync<Build>($"changelog/{stream}");
+  }
 }

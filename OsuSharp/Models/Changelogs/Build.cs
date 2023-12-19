@@ -12,6 +12,7 @@ namespace OsuSharp.Models.Changelogs;
 /// </summary>
 public class Build
 {
+  // TODO: does the "versions" attribute still exist? its not being returned
   /// <summary>
   /// The datetime at which this build was created.
   /// </summary>
@@ -48,6 +49,12 @@ public class Build
   /// </summary>
   [JsonProperty("youtube_id")]
   public string YouTubeID { get; private set; } = default!;
+
+  /// <summary>
+  /// The changes made in this build. This will be null if this <see cref="Build"/> object is accessed via <see cref="UpdateStream.LatestBuild"/>.
+  /// </summary>
+  [JsonProperty("changelog_entries")]
+  public ChangelogEntry[] Changelog { get; private set; } = default!;
 
   /// <summary>
   /// The update stream this build belongs to.

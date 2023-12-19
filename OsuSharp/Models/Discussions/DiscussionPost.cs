@@ -72,7 +72,7 @@ public class DiscussionPost
     #region Optional Attributes
 
     /// <summary>
-    /// The discussion this post belongs to. This may be null.
+    /// The discussion this post belongs to. This is an optional attribute and will be null if this post was accessed through a <see cref="Discussion"/>.
     /// </summary>
     [JsonProperty("beatmap_discussion")]
     public Discussion? Discussion { get; private set; }

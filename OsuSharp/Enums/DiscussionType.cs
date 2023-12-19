@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,30 +18,36 @@ public enum DiscussionType
   /// <summary>
   /// Represents a hype on the beatmapset.
   /// </summary>
+  [Description("hype")]
   Hype,
 
   /// <summary>
   /// Represents a note by the mapper.
   /// </summary>
+  [Description("note")]
   MapperNote,
 
   /// <summary>
   /// Represents a praise for the beatmap(set).
   /// </summary>
+  [Description("praise")]
   Praise,
 
   /// <summary>
   /// Represents a problem that was found on the beatmap(set).
   /// </summary>
+  [Description("problem")]
   Problem,
 
   /// <summary>
   /// Represents a review for the beatmap(set).
   /// </summary>
+  [Description("review")]
   Review,
 
   /// <summary>
   /// Represents a suggestion for the beatmap(set).
   /// </summary>
+  [Description("suggestion")]
   Suggestion
 }
