@@ -17,7 +17,8 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Fetches all beatmap packs with the specified type and returns an asynchronous enumerable,
-  /// allowing to lazily enumerate through all beatmap packs, performing further pagination requests as necessary.
+  /// allowing to lazily enumerate through all beatmap packs, performing further pagination requests as necessary.<br/>
+  /// If a pagination request failed, an <see cref="OsuApiException"/> is thrown.
   /// <br/><br/>
   /// API notes:<br/>
   /// This endpoint does not provide support for targetting a specific page directly per API design.<br/>
