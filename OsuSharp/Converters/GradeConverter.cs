@@ -11,7 +11,7 @@ namespace OsuSharp.Converters;
 /// <summary>
 /// A <see cref="JsonConverter"/> to convert strings to a <see cref="Grade"/> and vice versa.
 /// </summary>
-public class GradeConverter : JsonConverter
+internal class GradeConverter : JsonConverter
 {
   public override bool CanConvert(Type objectType)
   {

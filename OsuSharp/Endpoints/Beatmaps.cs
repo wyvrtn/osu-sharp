@@ -70,10 +70,10 @@ public partial class OsuApiClient
   public async Task<UserBeatmapScore?> GetUserBeatmapScoreAsync(int beatmapId, int userId, Ruleset? ruleset = null, string? mods = null)
   {
     // Build the query parameters.
-    string query = BuildQueryString(new()
+    string query = BuildQueryString(new Dictionary<string, string?>()
     {
-      ("mode", ruleset?.ToString()),
-      ("mods", mods)
+      { "mode", ruleset?.ToString() },
+      { "mods", mods }
     });
 
     // Send the request and return the score object.
@@ -94,9 +94,9 @@ public partial class OsuApiClient
   public async Task<Score[]?> GetUserBeatmapScoresAsync(int beatmapId, int userId, Ruleset? ruleset = null)
   {
     // Build the query parameters.
-    string query = BuildQueryString(new()
+    string query = BuildQueryString(new Dictionary<string, string?>()
     {
-      ("mode", ruleset?.ToString())
+      { "mode", ruleset?.ToString() }
     });
 
     // Send the request and return the score objects.
@@ -117,10 +117,10 @@ public partial class OsuApiClient
   public async Task<Score[]?> GetBeatmapScoresAsync(int beatmapId, Ruleset? ruleset = null, string? mods = null)
   {
     // Build the query parameters.
-    string query = BuildQueryString(new()
+    string query = BuildQueryString(new Dictionary<string, string?>()
     {
-      ("mode", ruleset?.ToString()),
-      ("mods", mods)
+      { "mode", ruleset?.ToString() },
+      { "mods", mods }
     });
 
     // Send the request and return the score objects.

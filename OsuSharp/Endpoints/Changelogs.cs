@@ -46,12 +46,12 @@ public partial class OsuApiClient
   public async Task<ChangelogListing> GetChangelogListingAsync(string? stream = null, string? fromBuild = null, string? toBuild = null, int? maxBuildId = null)
   {
     // Build the query string.
-    string query = BuildQueryString(new()
+    string query = BuildQueryString(new Dictionary<string, string?>()
     {
-      ("stream", stream),
-      ("from", fromBuild),
-      ("to", toBuild),
-      ("max_id", maxBuildId?.ToString())
+      { "stream", stream },
+      { "from", fromBuild },
+      { "to", toBuild },
+      { "max_id", maxBuildId?.ToString() }
     });
 
     // Send the request and return the changelog listing object.

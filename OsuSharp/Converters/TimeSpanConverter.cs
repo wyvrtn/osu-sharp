@@ -10,7 +10,7 @@ namespace OsuSharp.Converters;
 /// <summary>
 /// A <see cref="JsonConverter"/> to convert integers representing seconds to a <see cref="TimeSpan"/> and vice versa.
 /// </summary>
-public class TimeSpanConverter : JsonConverter
+internal class TimeSpanConverter : JsonConverter
 {
   public override bool CanConvert(Type objectType)
   {

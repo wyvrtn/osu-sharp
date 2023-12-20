@@ -10,7 +10,7 @@ namespace OsuSharp.Converters;
 /// <summary>
 /// A <see cref="JsonConverter"/> to convert strings to elements separated by a space to string arrays and vice versa.
 /// </summary>
-public class StringArrayConverter : JsonConverter
+internal class StringArrayConverter : JsonConverter
 {
   public override bool CanConvert(Type objectType)
   {

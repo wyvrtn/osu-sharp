@@ -25,7 +25,7 @@ public class BeatmapPack
   /// The creation date of the beatmap pack.
   /// </summary>
   [JsonProperty("date")]
-  public DateTimeOffset Date { get; private set; } = default;
+  public DateTimeOffset CreatedAt { get; private set; } = default;
 
   /// <summary>
   /// The name of the beatmap pack.

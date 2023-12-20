@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OsuSharp.Converters;
 using OsuSharp.Models;
 using OsuSharp.Models.Responses;
+using System;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -99,8 +101,8 @@ public partial class OsuApiClient
 
     try
     {
-      // Send the request, and validate the response. If 404 is returned, return null.
-      var response = await _http.SendAsync(new HttpRequestMessage(method ?? HttpMethod.Get, url));
+      // Send the request and validate the response. If 404 is returned, return null.
+      HttpResponseMessage response = await _http.SendAsync(new HttpRequestMessage(method ?? HttpMethod.Get, url));
       if (response.StatusCode == HttpStatusCode.NotFound)
         return default;
 
@@ -113,7 +115,7 @@ public partial class OsuApiClient
         if (o is null)
           return default;
 
-        // Otherwise, try to parse <the token into the specified type and return it.
+        // Otherwise, try to parse the token into the specified type and return it.
         return o.ToObject<T>();
       }
 
@@ -122,8 +124,44 @@ public partial class OsuApiClient
     }
     catch (Exception ex)
     {
-       throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response as `{typeof(T).Name}`.", ex);
+      throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response as `{typeof(T).Name}`.", ex);
     }
+  }
+
+  /// <summary>
+  /// Creates an <see cref="IAsyncEnumerable{T}"/>, used to asynchronously enumerate over the specified endpoint with the specified parameters,
+  /// using the cursor pagination system of the osu! API v2, making requests on the endpoint as necessary when enumerating over the return value.<br/>
+  /// If a pagination request failed, an <see cref="OsuApiException"/> is thrown.
+  /// </summary>
+  /// <typeparam name="T">The type of objects returned from the endpoint.</typeparam>
+  /// <param name="endpoint">The endpoint URL.</param>
+  /// <param name="parameters">The query parameters for the requests.</param>
+  /// <returns>An asynchronous enumerable to enumerate over the specified endpoint.</returns>
+  public async IAsyncEnumerable<T> EnumerateAsync<T>(string endpoint, Dictionary<string, string?> parameters) where T : class
+  {
+    // Ensure a valid access token.
+    await EnsureAccessTokenAsync();
+
+    // Add the cursor to the query parameters.
+    parameters.Add("cursor_string", null);
+
+    do
+    {
+      // Send the request, parse the response JSON and validate the response.
+      HttpResponseMessage response = await _http.GetAsync($"{endpoint}?{BuildQueryString(parameters)}");
+      string s = await response.Content.ReadAsStringAsync();
+      CursorResponse<T>? cResponse = JsonConvert.DeserializeObject<CursorResponse<T>>(await response.Content.ReadAsStringAsync(), new CursorResponseConverter<T>());
+      if (cResponse is null)
+        throw new OsuApiException($"An error occurred while requesting the {typeof(T).Name.ToLower()} items. (cResponse is null)");
+
+      // Yield return the data items.
+      foreach (T item in cResponse.Data)
+        yield return item;
+
+      // Update the cursor for the next request.
+      parameters["cursor_string"] = cResponse.Cursor;
+    }
+    while (parameters["cursor_string"] != null);
   }
 
   /// <summary>
@@ -131,7 +169,7 @@ public partial class OsuApiClient
   /// </summary>
   /// <param name="parameters">The parameters.</param>
   /// <returns>The query parameter string.</returns>
-  private string BuildQueryString(List<(string Key, string? Value)> parameters)
+  private string BuildQueryString(Dictionary<string, string?> parameters)
   {
     return string.Join("&", parameters.Where(x => x.Value is not null).Select(x => $"{x.Key}={x.Value}"));
   }

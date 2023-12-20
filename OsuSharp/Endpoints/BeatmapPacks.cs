@@ -16,8 +16,8 @@ public partial class OsuApiClient
   // API docs: https://osu.ppy.sh/docs/index.html#beatmap-packs
 
   /// <summary>
-  /// Fetches all beatmap packs with the specified type and returns an asynchronous enumerable,
-  /// allowing to lazily enumerate through all beatmap packs, performing further pagination requests as necessary.<br/>
+  /// Returns an asynchronous enumerable for all beatmap packs with the specified type, allowing to lazily
+  /// enumerate through all beatmap packs, performing further pagination requests as necessary.<br/>
   /// If a pagination request failed, an <see cref="OsuApiException"/> is thrown.
   /// <br/><br/>
   /// API notes:<br/>
@@ -25,27 +25,13 @@ public partial class OsuApiClient
   /// <a href="https://osu.ppy.sh/docs/index.html#get-beatmap-packs"/>
   /// </summary>
   /// <returns>An asynchronous enumerable for lazily enumerating over the beatmap packs.</returns>
-  public async IAsyncEnumerable<BeatmapPack> GetBeatmapPacksAsync(BeatmapPackType type = BeatmapPackType.Standard)
+  public IAsyncEnumerable<BeatmapPack> GetBeatmapPacksAsync(BeatmapPackType type = BeatmapPackType.Standard)
   {
-    // Always remember the cursor for the next request.
-    string? cursor = null;
-
-    // Keep requesting until there are no more pages, and yield return each beatmap pack to asynchronously enumerate over them.
-    do
+    // Return the asynchronous enumerable.
+    return EnumerateAsync<BeatmapPack>("beatmaps/packs", new Dictionary<string, string?>()
     {
-      // Send the request and validate the response.
-      BeatmapPacksResponse? bpResponse = await GetFromJsonAsync<BeatmapPacksResponse>($"beatmaps/packs?type={type.ToString().ToLower()}&cursor_string={cursor}");
-      if (bpResponse is null)
-        throw new OsuApiException("An error occured while requesting the beatmap packs. (response is null)");
-
-      // Yield return each beatmap pack.
-      foreach (var pack in bpResponse.Packs)
-        yield return pack;
-
-      // Update the cursor for the next request.
-      cursor = bpResponse.Cursor;
-    }
-    while (cursor != null);
+      { "type", type.ToString().ToLower() }
+    });
   }
 
   /// <summary>

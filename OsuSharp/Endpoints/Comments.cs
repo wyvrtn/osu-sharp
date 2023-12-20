@@ -32,6 +32,7 @@ public partial class OsuApiClient
   /// If a pagination request failed, an <see cref="OsuApiException"/> is thrown.
   /// <br/><br/>
   /// API notes:<br/>
+  /// This endpoint does not provide support for targetting a specific page directly per API design.<br/>
   /// Includes <see cref="CommentBundle.PinnedComments"/> if <paramref name="type"/> and <paramref name="commentableId"/> are specified.<br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-comments"/>
   /// </summary>
@@ -51,15 +52,15 @@ public partial class OsuApiClient
     do
     {
       // Build the query parameters.
-      string query = BuildQueryString(new()
+      string query = BuildQueryString(new Dictionary<string, string?>()
       {
-        ("cursor[id]", cursor?.Id.ToString()),
-        ("cursor[created_at]", cursor?.CreatedAt.ToString("o")),
-        ("after", after?.ToString()),
-        ("commentable_type", type?.ToString()),
-        ("commentable_id", commentableId?.ToString()),
-        ("parent_id", parentId?.ToString()),
-        ("sort", sort?.ToString())
+        { "cursor[id]", cursor?.Id.ToString() },
+        { "cursor[created_at]", cursor?.CreatedAt.ToString("o") },
+        { "after", after?.ToString() },
+        { "commentable_type", type?.ToString() },
+        { "commentable_id", commentableId?.ToString() },
+        { "parent_id", parentId?.ToString() },
+        { "sort", sort?.ToString() }
       });
 
       // Send the request and validate the response.

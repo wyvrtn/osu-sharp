@@ -13,7 +13,7 @@ namespace OsuSharp.Converters;
 /// <summary>
 /// A <see cref="JsonConverter"/> to convert strings to an enum and vice versa, using the <see cref="DescriptionAttribute"/> to specify the string value.
 /// </summary>
-public class StringEnumConverter : JsonConverter
+internal class StringEnumConverter : JsonConverter
 {
   public override bool CanConvert(Type objectType)
   {
