@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OsuSharp.Converters;
 using OsuSharp.Enums;
+using OsuSharp.Models.Comments;
 
 namespace OsuSharp.Models.Changelogs;
 
@@ -69,10 +70,16 @@ public class ChangelogEntry
   public ChangelogEntryType Type { get; private set; }
 
   /// <summary>
-  /// TODO: what is this?
+  /// TODO: what is this? It seems to always be null
   /// </summary>
   [JsonProperty("url")]
   public string? Url { get; private set; }
+
+  /// <summary>
+  /// The GitHub user responsible for the changes. This may be null.
+  /// </summary>
+  [JsonProperty("github_user")]
+  public GitHubUser? GitHubUser { get; private set; }
 
   /// <summary>
   /// A message explaining the changes in this entry. This may be null.
