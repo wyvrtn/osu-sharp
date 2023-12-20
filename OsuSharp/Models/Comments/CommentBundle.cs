@@ -9,6 +9,19 @@ using System.Threading.Tasks;
 namespace OsuSharp.Models.Comments;
 
 /// <summary>
+/// Temporary class to allow cursor pagination on comments, as a proper pagination system is not yet implemented.
+/// https://osu.ppy.sh/docs/index.html#cursor
+/// </summary>
+internal class Cursor
+{
+  [JsonProperty("id")]
+  public int Id { get; private set; }
+
+  [JsonProperty("created_at")]
+  public DateTime CreatedAt { get; private set; }
+}
+
+/// <summary>
 /// Represents a bundle of comments and related data.
 /// <br/><br/>
 /// API docs: <a href="https://osu.ppy.sh/docs/index.html#commentbundle"/><br/>
@@ -17,7 +30,19 @@ namespace OsuSharp.Models.Comments;
 public class CommentBundle
 {
   /// <summary>
-  /// The comments contained in this bundle.
+  /// Temporary property to allow cursor pagination on comments, as a proper pagination system is not yet implemented.
+  /// </summary>
+  [JsonProperty("cursor")]
+  internal Cursor Cursor { get; private set; } = default!;
+
+  /// <summary>
+  /// The metadata for the commentable objects referenced in the comment objects contained in this bundle.
+  /// </summary>
+  [JsonProperty("commentable_meta")]
+  public CommentableMeta[] CommentableMeta { get; private set; } = default!;
+
+  /// <summary>
+  /// The primary comments contained in this bundle.
   /// </summary>
   [JsonProperty("comments")]
   public Comment[] Comments { get; private set; } = default!;
@@ -32,18 +57,18 @@ public class CommentBundle
   /// TODO: what is this?
   /// </summary>
   [JsonProperty("has_more_id")]
-  public int HasMoreId { get; private set; }
+  public int? HasMoreId { get; private set; }
 
   /// <summary>
-  /// TODO: what dis
+  /// Comments related to the comments in <see cref="Comments"/>, including both replies and parents of them.
   /// </summary>
   [JsonProperty("included_comments")]
   public Comment[] IncludedComments { get; private set; } = default!;
 
   /// <summary>
-  /// TODO: what dis? just the pinned comments? from included comments and comments? are they exclusively in here or in both?
+  /// The pinned comments in this bundle, which are also contained in <see cref="Comments"/> or <see cref="IncludedComments"/>.
   /// </summary>
-  [JsonProperty("included_comments")]
+  [JsonProperty("pinned_comments")]
   public Comment[] PinnedComments { get; private set; } = default!;
 
   /// <summary>

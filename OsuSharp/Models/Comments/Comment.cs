@@ -116,10 +116,10 @@ public class Comment
   public User? User { get; private set; }
 
   /// <summary>
-  /// The user ID of the author of this comment.
+  /// The user ID of the author of this comment. This may be null.
   /// </summary>
   [JsonProperty("user_id")]
-  public int UserId { get; private set; }
+  public int? UserId { get; private set; }
 
   /// <summary>
   /// The number of upvotes on this comment.

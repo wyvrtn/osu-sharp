@@ -13,6 +13,7 @@ namespace OsuSharp.Models.Changelogs;
 public class Build
 {
   // TODO: does the "versions" attribute still exist? its not being returned
+
   /// <summary>
   /// The datetime at which this build was created.
   /// </summary>
@@ -61,4 +62,10 @@ public class Build
   /// </summary>
   [JsonProperty("update_stream")]
   public UpdateStream UpdateStream { get; private set; } = default!;
+
+  /// <summary>
+  /// The next and previous build version. This will be null if multiple builds are requested.
+  /// </summary>
+  [JsonProperty("versions")]
+  public Versions Versions { get; private set; } = default!;
 }

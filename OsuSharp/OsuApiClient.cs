@@ -113,16 +113,18 @@ public partial class OsuApiClient
         if (o is null)
           return default;
 
-        // Otherwise, try to parse the token into the specified type and return it.
+        // Otherwise, try to parse <the token into the specified type and return it.
         return o.ToObject<T>();
       }
 
       // Parse the JSON in the response into the specified type and return it.
-      return JsonConvert.DeserializeObject<T?>(await response.Content.ReadAsStringAsync());
+      string s = await response.Content.ReadAsStringAsync();
+      Console.WriteLine(s);
+      return JsonConvert.DeserializeObject<T?>(s);
     }
     catch (Exception ex)
     {
-      throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response as `{typeof(T).Name}`.", ex);
+       throw new OsuApiException($"An error occured while sending a GET request to {url} and parsing the response as `{typeof(T).Name}`.", ex);
     }
   }
 
