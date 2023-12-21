@@ -88,4 +88,36 @@ Changelogs (100% 3/3)
 Comments (100% 2/2)
   [✓] /comments
   [✓] /comments/{comment}
+
+Events (0% 0/1)
+  [ ] /events
+
+Forum (0% 0/1)
+  [ ] /forums/topics/{topic}
+
+Home (0% 0/1)
+  [ ] /search
+
+Multiplayer (0% 0/1)
+  [ ] /rooms/{room}/playlist/{playlist}/scores
+
+News (0% 0/2)
+  [ ] /news
+  [ ] /news/{news}
+
+Ranking (0% 0/3)
+  [ ] /rankings/kudosu
+  [ ] /rankings/{mode}/{type}
+  [ ] /spotlights
+
+Users (0% 0/6)
+  [ ] /users
+  [ ] /users/{user}/{mode?}
+  [ ] /users/{user}/kudosu
+  [ ] /users/{user}/scores/{type}
+  [ ] /users/{user}/beatmapsets/{type}
+  [ ] /users/{user}/recent_activity
+
+Wiki (0% 0/1)
+  [ ] /wiki/{locale}/{path}
 ```
