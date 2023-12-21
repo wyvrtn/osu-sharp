@@ -38,7 +38,7 @@ public class Beatmap
   /// The ruleset this beatmap was made for.
   /// </summary>
   [JsonProperty("mode")]
-  [JsonConverter(typeof(OsuSharp.Converters.StringEnumConverter))]
+  [JsonConverter(typeof(StringEnumConverter))]
   public Ruleset Ruleset { get; private set; }
 
   /// <summary>
