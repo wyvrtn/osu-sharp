@@ -17,10 +17,8 @@ This wrapper <ins>currently only supports client credential authentication</ins>
 
 # Getting Started
 
-The methods for accessing the API can be found in the `OsuApiClient` class. When creating an instance, you will need to specify the client ID and client secret, as found in your [osu! settings](https://osu.ppy.sh/home/account/edit#oauth).   
-Authorization using an OAuth flow or user credentials is not supported *yet*, but is planned for the future.
-
-## Example
+The methods for accessing the API can be found in the `OsuApiClient` class. When creating an instance, you will need to specify the client ID and client secret, as found in your [osu! settings](https://osu.ppy.sh/home/account/edit#oauth).  
+Authorization using an OAuth flow or user credentials is not supported *yet*, but is planned for the future.  
 
 Below, you can find a simple example on how to authenticate using client credentials and request info about a beatmapset.
 ```cs
