@@ -94,15 +94,18 @@ public partial class OsuApiClient
   /// <param name="url">The request URL.</param>
   /// <param name="jsonSelector">Optional. A selector for the base JSON, allowing to parse a sub-property of the JSON object.</param>
   /// <returns></returns>
-  private async Task<T?> GetFromJsonAsync<T>(string url, Func<JObject, JToken?>? jsonSelector = null, HttpMethod? method = null)
+  private async Task<T?> GetFromJsonAsync<T>(string url, Dictionary<string, string?>? parameters = null, Func<JObject, JToken?>? jsonSelector = null, HttpMethod? method = null)
   {
+    // Default to an empty dictionary if no parameters are specified.
+    parameters ??= new Dictionary<string, string?>();
+
     // Ensure a valid access token.
     await EnsureAccessTokenAsync();
 
     try
     {
       // Send the request and validate the response. If 404 is returned, return null.
-      HttpResponseMessage response = await _http.SendAsync(new HttpRequestMessage(method ?? HttpMethod.Get, url));
+      HttpResponseMessage response = await _http.SendAsync(new HttpRequestMessage(method ?? HttpMethod.Get, $"{url}?{BuildQueryString(parameters)}"));
       if (response.StatusCode == HttpStatusCode.NotFound)
         return default;
 
@@ -149,7 +152,6 @@ public partial class OsuApiClient
     {
       // Send the request, parse the response JSON and validate the response.
       HttpResponseMessage response = await _http.GetAsync($"{endpoint}?{BuildQueryString(parameters)}");
-      string s = await response.Content.ReadAsStringAsync();
       CursorResponse<T>? cResponse = JsonConvert.DeserializeObject<CursorResponse<T>>(await response.Content.ReadAsStringAsync(), new CursorResponseConverter<T>());
       if (cResponse is null)
         throw new OsuApiException($"An error occurred while requesting the {typeof(T).Name.ToLower()} items. (cResponse is null)");

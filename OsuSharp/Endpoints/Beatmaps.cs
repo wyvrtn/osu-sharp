@@ -69,15 +69,12 @@ public partial class OsuApiClient
   /// <returns>The beatmap user score or null, if the beatmap, user or score was not found.</returns>
   public async Task<UserBeatmapScore?> GetUserBeatmapScoreAsync(int beatmapId, int userId, Ruleset? ruleset = null, string? mods = null)
   {
-    // Build the query parameters.
-    string query = BuildQueryString(new Dictionary<string, string?>()
+    // Send the request and return the score object.
+    return await GetFromJsonAsync<UserBeatmapScore>($"beatmaps/{beatmapId}/scores/users/{userId}", new Dictionary<string, string?>()
     {
       { "mode", ruleset?.ToString() },
       { "mods", mods }
     });
-
-    // Send the request and return the score object.
-    return await GetFromJsonAsync<UserBeatmapScore>($"beatmaps/{beatmapId}/scores/users/{userId}?{query}");
   }
 
   /// <summary>
@@ -93,14 +90,11 @@ public partial class OsuApiClient
   /// <returns>The beatmap user score or null, if the beatmap or user was not found.</returns>
   public async Task<Score[]?> GetUserBeatmapScoresAsync(int beatmapId, int userId, Ruleset? ruleset = null)
   {
-    // Build the query parameters.
-    string query = BuildQueryString(new Dictionary<string, string?>()
+    // Send the request and return the score objects.
+    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores/users/{userId}/all?{query}", new Dictionary<string, string?>()
     {
       { "mode", ruleset?.ToString() }
-    });
-
-    // Send the request and return the score objects.
-    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores/users/{userId}/all?{query}", x => x["scores"]);
+    }, x => x["scores"]);
   }
 
   /// <summary>
@@ -116,15 +110,12 @@ public partial class OsuApiClient
   /// <returns>The beatmap user score or null, if the beatmap or user was not found.</returns>
   public async Task<Score[]?> GetBeatmapScoresAsync(int beatmapId, Ruleset? ruleset = null, string? mods = null)
   {
-    // Build the query parameters.
-    string query = BuildQueryString(new Dictionary<string, string?>()
+    // Send the request and return the score objects.
+    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores", new Dictionary<string, string?>()
     {
       { "mode", ruleset?.ToString() },
       { "mods", mods }
-    });
-
-    // Send the request and return the score objects.
-    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores?{query}", x => x["scores"]);
+    }, x => x["scores"]);
   }
 
   /// <summary>

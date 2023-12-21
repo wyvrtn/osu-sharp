@@ -26,8 +26,8 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Fetches all comments of osu! with the specified filters and returns an asynchronous enumerable,
-  /// allowing to lazily enumerate through all comments, performing further pagination requests as necessary,
+  /// Returns an asynchronous enumerable for all comments with the specified filters, allowing to lazily
+  /// enumerate through all comments, performing further pagination requests as necessary,
   /// with each comment bundle containing multiple comments.<br/>
   /// If a pagination request failed, an <see cref="OsuApiException"/> is thrown.
   /// <br/><br/>
@@ -51,8 +51,8 @@ public partial class OsuApiClient
     // Keep requesting until there are no more pages, and yield return the comment bundles to asynchronously enumerate over them.
     do
     {
-      // Build the query parameters.
-      string query = BuildQueryString(new Dictionary<string, string?>()
+      // Send the request.
+      CommentBundle? bundle = await GetFromJsonAsync<CommentBundle>($"comments", new Dictionary<string, string?>()
       {
         { "cursor[id]", cursor?.Id.ToString() },
         { "cursor[created_at]", cursor?.CreatedAt.ToString("o") },
@@ -63,8 +63,7 @@ public partial class OsuApiClient
         { "sort", sort?.ToString() }
       });
 
-      // Send the request and validate the response.
-      CommentBundle? bundle = await GetFromJsonAsync<CommentBundle>($"comments?{query}");
+      // Validate the response and throw an exception if the bundle is null.
       if (bundle is null)
         throw new OsuApiException("An error occured while requesting the comment bundle. (bundle is null)");
 
