@@ -103,7 +103,6 @@ public class BeatmapSet
   /// The ranked status of this beatmapset.
   /// </summary>
   [JsonProperty("status")]
-  [JsonConverter(typeof(StringEnumConverter))]
   public RankedStatus Status { get; private set; }
 
   /// <summary>

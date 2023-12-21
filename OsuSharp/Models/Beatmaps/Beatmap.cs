@@ -45,7 +45,6 @@ public class Beatmap
   /// The ranked status of this beatmap.
   /// </summary>
   [JsonProperty("status")]
-  [JsonConverter(typeof(OsuSharp.Converters.StringEnumConverter))]
   public RankedStatus Status { get; private set; }
 
   /// <summary>
