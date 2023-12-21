@@ -33,6 +33,8 @@ client.EnsureAccessToken();
 BeatmapSetExtended? set = await client.GetBeatmapSetAsync(842412);
 ```
 
+Every model and every endpoint method is well documented, containing both references to the API documentation and osu-web source code, as well as notes found in the API documentation. If you believe you've found an inconsistency, for example due to changes to the API, please let me know in the GitHub Issues.
+
 ## Asynchronous Enumerables for pagination
 
 For API endpoints that have pagination, osu-sharp provides an `IAsyncEnumerable` allowing you to treat the data received from the endpoint as an enumerable. It automatically performs further pagination requests as necessary, making working with it very easy and straight-forward. Below, you can find an example.
@@ -50,9 +52,9 @@ await foreach (BeatmapPack pack in packs)
 
 ## Normal & Extended models
 
-The osu! API splits it's models for beatmaps, beatmapsets and users, the normal size (`Beatmap`, `BeatmapSet`, `User`), and their extended version, containing more fields with information (`BeatmapExtended`, `BeatmapSetExtended`, `UserExtended`). It is advised to utilize the API docs when using the API wrapper, to make sure you get the necessary information you require.
+The osu! API splits it's models for beatmaps, beatmapsets and users, the normal size (`Beatmap`, `BeatmapSet`, `User`), and their extended version, containing more fields with information (`BeatmapExtended`, `BeatmapSetExtended`, `UserExtended`). It is advised to utilize the API documentation when using the API wrapper, to make sure you get the necessary information you require.
 
-Below, you can find the API docs for each model:  
+Below, you can find the API documentation for each model:  
 [Beatmap](https://osu.ppy.sh/docs/index.html#beatmap) • [BeatmapExtended](https://osu.ppy.sh/docs/index.html#beatmapextended)  
 [BeatmapSet](https://osu.ppy.sh/docs/index.html#beatmapset) • [BeatmapSetExtended](https://osu.ppy.sh/docs/index.html#beatmapsetextended)  
 [User](https://osu.ppy.sh/docs/index.html#user) • [UserExtended](https://osu.ppy.sh/docs/index.html#userextended)
