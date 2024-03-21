@@ -1,13 +1,7 @@
 ﻿using Newtonsoft.Json;
-using OsuSharp.Converters;
 using OsuSharp.Enums;
 using OsuSharp.Models.Discussions;
 using OsuSharp.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OsuSharp.Models.Beatmaps;
 

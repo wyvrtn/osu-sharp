@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using OsuSharp.Converters;
 using OsuSharp.Models;
 using OsuSharp.Models.Responses;
-using System;
 using System.Net;
 using System.Net.Http.Headers;
 

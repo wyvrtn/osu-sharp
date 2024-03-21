@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace OsuSharp.Models;
+﻿namespace OsuSharp.Models;
 
 /// <summary>
 /// Represents a response wrapper for API endpoints that include a "cursor_string" field, which is a string that can be used to fetch the next page of results.

@@ -2,7 +2,6 @@
 using OsuSharp.Models.Beatmaps;
 using OsuSharp.Models.Scores;
 using OsuSharp.Models.Users;
-using System.Runtime.Serialization;
 using System.Web;
 
 namespace OsuSharp;
