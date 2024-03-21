@@ -10,6 +10,8 @@ public partial class OsuApiClient
   /// <summary>
   /// Gets a comment bundle containing the comment with the specified ID and replies up to 2 levels deep. If the comment was not found, null is returned.
   /// <br/><br/>
+  /// API notes:<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-a-comment"/>
   /// </summary>
   /// <param name="commentId">The ID of the comment.</param>
   /// <returns>The comment bundle or null, if the comment was not found.</returns>

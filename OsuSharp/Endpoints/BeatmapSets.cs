@@ -12,7 +12,7 @@ public partial class OsuApiClient
   /// API notes:<br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-apiv2beatmapsetslookup"/>
   /// </summary>
-  /// <param name="id">The ID of the beatmap.</param>
+  /// <param name="beatmapId">The ID of the beatmap.</param>
   /// <returns>The beatmapset or null, if the beatmapset was not found.</returns>
   public async Task<BeatmapSetExtended?> LookupBeatmapSetAsync(int beatmapId)
   {
@@ -26,7 +26,7 @@ public partial class OsuApiClient
   /// API notes:<br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-apiv2beatmapsetsbeatmapset"/>
   /// </summary>
-  /// <param name="id">The ID of the beatmapset.</param>
+  /// <param name="beatmapSetId">The ID of the beatmapset.</param>
   /// <returns>The beatmapset or null, if the beatmapset was not found.</returns>
   public async Task<BeatmapSetExtended?> GetBeatmapSetAsync(int beatmapSetId)
   {

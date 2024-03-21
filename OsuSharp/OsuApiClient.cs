@@ -91,9 +91,12 @@ public partial class OsuApiClient
   /// </summary>
   /// <typeparam name="T">The type to parse the JSON in the response into.</typeparam>
   /// <param name="url">The request URL.</param>
+  /// <param name="parameters">Optional. The query parameters of the URL. All parameters with a null value are ignored.</param>
   /// <param name="jsonSelector">Optional. A selector for the base JSON, allowing to parse a sub-property of the JSON object.</param>
-  /// <returns></returns>
-  private async Task<T?> GetFromJsonAsync<T>(string url, Dictionary<string, string?>? parameters = null, Func<JObject, JToken?>? jsonSelector = null, HttpMethod? method = null)
+  /// <param name="method">Optional. The HTTP Method used. This defaults to GET, and only exists for niche API inconsistencies.</param>
+  /// <returns>The parsed response.</returns>
+  private async Task<T?> GetFromJsonAsync<T>(string url, Dictionary<string, string?>? parameters = null, Func<JObject, JToken?>? jsonSelector = null,
+                                             HttpMethod? method = null)
   {
     // Default to an empty dictionary if no parameters are specified.
     parameters ??= new Dictionary<string, string?>();
