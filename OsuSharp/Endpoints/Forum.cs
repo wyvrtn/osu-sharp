@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OsuSharp.Enums;
-using OsuSharp.Models.Beatmaps;
 using OsuSharp.Models.Forum;
-using System.Diagnostics;
-using System.Reflection.Metadata;
 
 namespace OsuSharp;
 

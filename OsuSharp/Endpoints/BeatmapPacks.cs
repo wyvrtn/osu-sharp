@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OsuSharp.Enums;
 using OsuSharp.Models.Beatmaps;
-using System.Reflection.Metadata;
 
 namespace OsuSharp;
 
