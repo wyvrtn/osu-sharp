@@ -116,5 +116,5 @@ Users (0% 0/6)
   [ ] /users/{user}/recent_activity
 
 Wiki (0% 0/1)
-  [ ] /wiki/{locale}/{path}
+  [✓] /wiki/{locale}/{path}
 ```

@@ -11,7 +11,7 @@ namespace OsuSharp.Models.Users;
 public class Country
 {
   /// <summary>
-  /// The 2-letter ISO code of this country.
+  /// The BCP 47 language tag of this country.
   /// </summary>
   [JsonProperty("code")]
   public string Code { get; private set; } = default!;

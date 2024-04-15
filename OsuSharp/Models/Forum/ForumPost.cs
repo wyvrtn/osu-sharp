@@ -5,7 +5,7 @@ namespace OsuSharp.Models.Forum;
 /// <summary>
 /// Represents a forum post in a <see cref="ForumTopic"/>.
 /// <br/><br/>
-/// API docs: <a href="https://osu.ppy.sh/docs/index.html#forum-post"/>
+/// API docs: <a href="https://osu.ppy.sh/docs/index.html#forum-post"/><br/>
 /// Source: <a href=""/>
 /// </summary>
 public class ForumPost
