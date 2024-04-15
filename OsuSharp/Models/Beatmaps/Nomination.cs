@@ -26,7 +26,7 @@ public class Nomination
   public Ruleset[] Rulesets { get; private set; } = default!;
 
   /// <summary>
-  /// TODO: what is this?
+  /// Bool whether the nomination has been reset/withdrawn.
   /// </summary>
   [JsonProperty("reset")]
   public bool Reset { get; private set; }

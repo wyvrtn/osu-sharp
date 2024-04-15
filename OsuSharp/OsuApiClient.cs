@@ -3,8 +3,12 @@ using Newtonsoft.Json.Linq;
 using OsuSharp.Converters;
 using OsuSharp.Models;
 using OsuSharp.Models.Responses;
+using System.ComponentModel;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Reflection;
+using System.Text;
+using System.Web;
 
 namespace OsuSharp;
 
@@ -95,11 +99,11 @@ public partial class OsuApiClient
   /// <param name="jsonSelector">Optional. A selector for the base JSON, allowing to parse a sub-property of the JSON object.</param>
   /// <param name="method">Optional. The HTTP Method used. This defaults to GET, and only exists for niche API inconsistencies.</param>
   /// <returns>The parsed response.</returns>
-  private async Task<T?> GetFromJsonAsync<T>(string url, Dictionary<string, string?>? parameters = null, Func<JObject, JToken?>? jsonSelector = null,
+  private async Task<T?> GetFromJsonAsync<T>(string url, Dictionary<string, object?>? parameters = null, Func<JObject, JToken?>? jsonSelector = null,
                                              HttpMethod? method = null)
   {
     // Default to an empty dictionary if no parameters are specified.
-    parameters ??= new Dictionary<string, string?>();
+    parameters ??= new Dictionary<string, object?>();
 
     // Ensure a valid access token.
     await EnsureAccessTokenAsync();
@@ -134,47 +138,34 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Creates an <see cref="IAsyncEnumerable{T}"/>, used to asynchronously enumerate over the specified endpoint with the specified parameters,
-  /// using the cursor pagination system of the osu! API v2, making requests on the endpoint as necessary when enumerating over the return value.<br/>
-  /// If a pagination request failed, an <see cref="OsuApiException"/> is thrown.
-  /// </summary>
-  /// <typeparam name="T">The type of objects returned from the endpoint.</typeparam>
-  /// <param name="endpoint">The endpoint URL.</param>
-  /// <param name="parameters">The query parameters for the requests.</param>
-  /// <returns>An asynchronous enumerable to enumerate over the specified endpoint.</returns>
-  public async IAsyncEnumerable<T> EnumerateAsync<T>(string endpoint, Dictionary<string, string?> parameters) where T : class
-  {
-    // Ensure a valid access token.
-    await EnsureAccessTokenAsync();
-
-    // Add the cursor to the query parameters.
-    parameters.Add("cursor_string", null);
-
-    do
-    {
-      // Send the request, parse the response JSON and validate the response.
-      HttpResponseMessage response = await _http.GetAsync($"{endpoint}?{BuildQueryString(parameters)}");
-      CursorResponse<T>? cResponse = JsonConvert.DeserializeObject<CursorResponse<T>>(await response.Content.ReadAsStringAsync(), new CursorResponseConverter<T>());
-      if (cResponse is null)
-        throw new OsuApiException($"An error occurred while requesting the {typeof(T).Name.ToLower()} items. (cResponse is null)");
-
-      // Yield return the data items.
-      foreach (T item in cResponse.Data)
-        yield return item;
-
-      // Update the cursor for the next request.
-      parameters["cursor_string"] = cResponse.Cursor;
-    }
-    while (parameters["cursor_string"] != null);
-  }
-
-  /// <summary>
   /// Constructs a query parameter string from the specified parameters, where all parameters with a null value are ignored.
   /// </summary>
   /// <param name="parameters">The parameters.</param>
   /// <returns>The query parameter string.</returns>
-  private string BuildQueryString(Dictionary<string, string?> parameters)
+  private string BuildQueryString(Dictionary<string, object?> parameters)
   {
-    return string.Join("&", parameters.Where(x => x.Value is not null).Select(x => $"{x.Key}={x.Value}"));
+    string str = "";
+
+    // Build the query string from all no-null parameters.
+    foreach (KeyValuePair<string, object?> kvp in parameters.Where(x => x.Value is not null))
+    {
+      str += $"&{HttpUtility.HtmlEncode(kvp.Key)}=";
+
+      // Handle the value->string parsing based on it's type.
+      if (kvp.Value is Enum e)
+      {
+        // If the enum has a description attribute, use it. Otherwise, use the enum value.
+        DescriptionAttribute? attr = e.GetType().GetField(e.ToString())!.GetCustomAttribute<DescriptionAttribute>();
+        str += attr?.Description ?? e.ToString();
+      }
+      else if (kvp.Value is DateTime dt)
+        // Use the ISO 8601 format for dates.
+        str += dt.ToString("o");
+      else
+        str += HttpUtility.HtmlEncode(kvp.Value!.ToString());
+    }
+
+    // Remove the first '&' character added by the foreach and return the query string.
+    return str.TrimStart('&');
   }
 }

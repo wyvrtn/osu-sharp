@@ -47,15 +47,15 @@ public partial class OsuApiClient
     do
     {
       // Send the request.
-      CommentBundle? bundle = await GetFromJsonAsync<CommentBundle>($"comments", new Dictionary<string, string?>()
+      CommentBundle? bundle = await GetFromJsonAsync<CommentBundle>($"comments", new Dictionary<string, object?>()
       {
-        { "cursor[id]", cursor?.Id.ToString() },
-        { "cursor[created_at]", cursor?.CreatedAt.ToString("o") },
-        { "after", after?.ToString() },
-        { "commentable_type", type?.ToString() },
-        { "commentable_id", commentableId?.ToString() },
-        { "parent_id", parentId?.ToString() },
-        { "sort", sort?.ToString() }
+        { "cursor[id]", cursor?.Id },
+        { "cursor[created_at]", cursor?.CreatedAt },
+        { "after", after },
+        { "commentable_type", type },
+        { "commentable_id", commentableId },
+        { "parent_id", parentId },
+        { "sort", sort }
       });
 
       // Validate the response and throw an exception if the bundle is null.
@@ -66,6 +66,6 @@ public partial class OsuApiClient
       yield return bundle;
       cursor = bundle.Cursor;
     }
-    while (cursor != null);
+    while (cursor is not null);
   }
 }

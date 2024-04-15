@@ -33,7 +33,7 @@ public class DiscussionPost
   public DateTimeOffset? DeletedAt { get; private set; }
 
   /// <summary>
-  /// TODO: what is this? user id of person that deleted?
+  /// The ID of the user that deleted this post. This will be null if the post has not been deleted.
   /// </summary>
   [JsonProperty("deleted_by_id")]
   public int? DeletedById { get; private set; }
@@ -45,7 +45,7 @@ public class DiscussionPost
   public int Id { get; private set; }
 
   /// <summary>
-  /// TODO: what is this? The user id of the last person to edit this post?
+  /// The ID of the user that last edited this post. This will be null if the post has not been edited.
   /// </summary>
   [JsonProperty("last_editor_id")]
   public int? LastEditorId { get; private set; }

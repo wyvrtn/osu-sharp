@@ -1,4 +1,6 @@
-﻿namespace OsuSharp.Enums;
+﻿using System.ComponentModel;
+
+namespace OsuSharp.Enums;
 
 /// <summary>
 /// An enum containing the sorting options for posts of forum topics.
@@ -11,10 +13,12 @@ public enum PostSort
   /// <summary>
   /// Sorts the posts by their creation date in ascending order.
   /// </summary>
+  [Description("id_asc")]
   IDAscending,
 
   /// <summary>
   /// Sorts the posts by their creation date in descending order.
   /// </summary>
+  [Description("id_desc")]
   IDDescending
 }

@@ -28,7 +28,7 @@ public class Discussion
   public int BeatmapSetId { get; private set; }
 
   /// <summary>
-  /// TODO: what is this
+  /// Bool whether the discussion can be resolved.
   /// </summary>
   [JsonProperty("can_be_resolved")]
   public bool CanBeResolved { get; private set; }
@@ -52,7 +52,7 @@ public class Discussion
   public DateTimeOffset? DeletedAt { get; private set; }
 
   /// <summary>
-  /// TODO: what is this? user id of person that deleted?
+  /// The ID of the user that deleted this dicussion. This will be null if the discussion has not been deleted.
   /// </summary>
   [JsonProperty("deleted_by_id")]
   public int? DeletedById { get; private set; }
@@ -83,10 +83,11 @@ public class Discussion
   public DiscussionType Type { get; private set; }
 
   /// <summary>
-  /// TODO: What is this? Can discussions have parents? Isn't one whole tree of comments one singular discussion?
+  /// The ID of the parent review. This will be null if this discussion is not part of a review.<br/>
+  /// A review is a bundle of discussions, with all bundled discussion having the same parent ID.
   /// </summary>
   [JsonProperty("parent_id")]
-  public int? ParentId { get; private set; }
+  public int? ParentReviewId { get; private set; }
 
   /// <summary>
   /// Bool whether this discussion is marked as resolved.
@@ -95,10 +96,11 @@ public class Discussion
   public bool IsResolved { get; private set; }
 
   /// <summary>
-  /// TODO: what is this?
+  /// The millisecond timestamp in the beatmap this discussion refers to. This will be null if the discussion is not targetting a timestamp.<br/>
+  /// The timestamp considered is automatically the first timestamp mentioned in the body of the discussion.
   /// </summary>
   [JsonProperty("timestamp")]
-  public DateTimeOffset? Timestamp { get; private set; }
+  public int? Timestamp { get; private set; }
 
   /// <summary>
   /// The datetime at which this discussion was last updated.

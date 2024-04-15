@@ -69,9 +69,9 @@ public partial class OsuApiClient
   public async Task<UserBeatmapScore?> GetUserBeatmapScoreAsync(int beatmapId, int userId, Ruleset? ruleset = null, string? mods = null)
   {
     // Send the request and return the score object.
-    return await GetFromJsonAsync<UserBeatmapScore>($"beatmaps/{beatmapId}/scores/users/{userId}", new Dictionary<string, string?>()
+    return await GetFromJsonAsync<UserBeatmapScore>($"beatmaps/{beatmapId}/scores/users/{userId}", new Dictionary<string, object?>()
     {
-      { "mode", ruleset?.ToString() },
+      { "mode", ruleset },
       { "mods", mods }
     });
   }
@@ -90,9 +90,9 @@ public partial class OsuApiClient
   public async Task<Score[]?> GetUserBeatmapScoresAsync(int beatmapId, int userId, Ruleset? ruleset = null)
   {
     // Send the request and return the score objects.
-    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores/users/{userId}/all", new Dictionary<string, string?>()
+    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores/users/{userId}/all", new Dictionary<string, object?>()
     {
-      { "mode", ruleset?.ToString() }
+      { "mode", ruleset }
     }, x => x["scores"]);
   }
 
@@ -110,9 +110,9 @@ public partial class OsuApiClient
   public async Task<Score[]?> GetBeatmapScoresAsync(int beatmapId, Ruleset? ruleset = null, string? mods = null)
   {
     // Send the request and return the score objects.
-    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores", new Dictionary<string, string?>()
+    return await GetFromJsonAsync<Score[]>($"beatmaps/{beatmapId}/scores", new Dictionary<string, object?>()
     {
-      { "mode", ruleset?.ToString() },
+      { "mode", ruleset },
       { "mods", mods }
     }, x => x["scores"]);
   }

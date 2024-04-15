@@ -112,7 +112,7 @@ public class BeatmapSet
   public string TitleUnicode { get; private set; } = default!;
 
   /// <summary>
-  /// TODO: what is this?
+  /// The ID of the sound track in the featured artist program. This will be null if the song is not a part of it.
   /// </summary>
   [JsonProperty("track_id")]
   public int? TrackId { get; private set; }

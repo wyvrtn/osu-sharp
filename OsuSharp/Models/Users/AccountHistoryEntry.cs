@@ -49,11 +49,6 @@ public class AccountHistoryEntry
   public DateTimeOffset? Timestamp { get; private set; }
 
   /// <summary>
-  /// TODO: what is this?
-  /// </summary>
-  public string SupportingUrl { get; private set; } = default!;
-
-  /// <summary>
   /// The type of this history entry.
   /// </summary>
   [JsonProperty("type")]

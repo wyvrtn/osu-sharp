@@ -11,13 +11,13 @@ namespace OsuSharp.Models.Discussions;
 public class DiscussionVoters
 {
   /// <summary>
-  /// TODO: What is this? User ids of the users thet voted?
+  /// The IDs of the users that downvoted the discussion.
   /// </summary>
   [JsonProperty("down")]
   public int[] Down { get; private set; } = default!;
 
   /// <summary>
-  /// TODO: What is this? User ids of the users thet voted?
+  /// The IDs of the users that upvoted the discussion.
   /// </summary>
   [JsonProperty("up")]
   public int[] Up { get; private set; } = default!;

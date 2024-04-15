@@ -11,7 +11,7 @@ namespace OsuSharp.Models.Users;
 public class Country
 {
   /// <summary>
-  /// The 2-letter code of this country.
+  /// The 2-letter ISO code of this country.
   /// </summary>
   [JsonProperty("code")]
   public string Code { get; private set; } = default!;
@@ -19,6 +19,7 @@ public class Country
   /// <summary>
   /// TODO: what is this?
   /// </summary>
+  [JsonProperty("display")]
   public int? Display { get; private set; }
 
   /// <summary>

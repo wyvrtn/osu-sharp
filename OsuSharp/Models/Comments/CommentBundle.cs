@@ -67,13 +67,7 @@ public class CommentBundle
   public Comment[] PinnedComments { get; private set; } = default!;
 
   /// <summary>
-  /// The sort order this bundle was fetched with.
-  /// </summary>
-  [JsonProperty("sort")]
-  public string Sort { get; private set; } = default!;
-
-  /// <summary>
-  /// TODO: what is this? the amount of top level comments in all of osu?
+  /// The amount of top-level comments in this bundle.
   /// </summary>
   [JsonProperty("top_level_count")]
   public int TopLevelCount { get; private set; }

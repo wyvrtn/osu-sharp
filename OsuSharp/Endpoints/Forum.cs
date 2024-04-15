@@ -1,4 +1,9 @@
-﻿using OsuSharp.Enums;
+﻿using Newtonsoft.Json;
+using OsuSharp.Enums;
+using OsuSharp.Models.Beatmaps;
+using OsuSharp.Models.Forum;
+using System.Diagnostics;
+using System.Reflection.Metadata;
 
 namespace OsuSharp;
 
@@ -21,20 +26,40 @@ public partial class OsuApiClient
   /// <param name="start">The ID of the first post to return. Only applies if <paramref name="sort"/> is <see cref="PostSort.IDAscending"/>.</param>
   /// <param name="end">The ID of the last post to return. Only applies if <paramref name="sort"/> is <see cref="PostSort.IDDescending"/>.</param>
   /// <returns>An asynchronous enumerable for lazily enumerating over the posts of tthe forum topic.</returns>
-  public IAsyncEnumerable<ForumPost> GetForumTopicAsync(int topicId, PostSort sort = PostSort.IDAscending, int limit = 20, int? start = null, int? end = null)
+  private async IAsyncEnumerable<ForumPost> GetForumPostsAsync(int topicId, PostSort sort = PostSort.IDAscending, int limit = 20,
+                                                              int? start = null, int? end = null)
   {
-    // Return the asynchronous enumerable.
-    return EnumerateAsync<ForumPost>($"forum/topics/{topicId}", new Dictionary<string, string?>()
+    // Always remember the cursor for the next request. Also remember the forum topic, as it is identical for all requests.
+    string? cursor = null;
+    ForumTopic topic = null!;
+
+    // Keep requesting until there are no more pages, and yield return the forum posts to asynchronously enumerate over them.
+    do
     {
-      { "sort", sort.ToString() },
-      { "limit", limit.ToString() },
-      { "start", start?.ToString() },
-      { "end", end?.ToString() }
-    });
+      // Send the request and parse it into a dynamic object to extract the data and cursor.
+      dynamic? obj = await GetFromJsonAsync<dynamic>($"forums/topics/{topicId}", new Dictionary<string, object?>()
+      {
+      { "sort", sort },
+      { "limit", limit },
+      { "start", start },
+      { "end", end }
+      });
+
+      // The topic is the same for all requests, so only parse it if not already done.
+      if (topic is null)
+        topic = JsonConvert.DeserializeObject<ForumTopic>(obj!.topic.ToString());
+
+      // Update the cursor for the next request and yield return the forum posts.
+      cursor = obj!.cursor_string.Value;
+      foreach (ForumPost post in JsonConvert.DeserializeObject<ForumPost[]>(obj!.posts.ToString()))
+      {
+        // Inject the forum topic object containing the posts into the forum post objects,
+        // as there is no way to return the object from this method directly (async = no out parameter, ...).
+        post.Topic = obj!.topic;
+
+        yield return post;
+      }
+    }
+    while (cursor is not null);
   }
-}
-
-public class ForumPost
-{
-
 }
