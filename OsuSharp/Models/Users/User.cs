@@ -232,6 +232,12 @@ public class User
   public bool? IsSilenced { get; private set; }
 
   /// <summary>
+  /// The amount of kudosu this user has. This is an optional property and may be null.
+  /// </summary>
+  [JsonProperty("kudosu")]
+  public Kudosu? Kudosu { get; private set; }
+
+  /// <summary>
   /// The amount of loved beatmapsets this user has. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("loved_beatmapset_count")]
