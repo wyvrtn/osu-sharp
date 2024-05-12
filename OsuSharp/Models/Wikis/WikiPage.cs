@@ -23,7 +23,7 @@ public class WikiPage
   /// </summary>
   [JsonProperty("layout")]
   [JsonConverter(typeof(StringEnumConverter))]
-  public WikiPageLayoutType Layout { get; private set; } = default!;
+  public WikiPageLayout Layout { get; private set; } = default!;
 
   /// <summary>
   /// The BCP 47 language code of the locale of this wiki page.

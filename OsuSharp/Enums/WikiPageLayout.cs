@@ -4,25 +4,26 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OsuSharp.Models.Wikis;
 
 namespace OsuSharp.Enums;
 
 /// <summary>
-/// An enum containing the layout types of a wiki page.
+/// An enum containing the types of layout of a <see cref="WikiPage"/>.
 /// <br/><br/>
 /// API docs: Not documented, refer to source<br/>
 /// Source: <a href="https://github.com/ppy/osu-web/blob/master/app/Models/Wiki/Page.php"/>
 /// </summary>
-public enum WikiPageLayoutType
+public enum WikiPageLayout
 {
   /// <summary>
-  /// The wiki page is in markdown format.
+  /// Indicates that the wiki page is a normal page written in Markdown.
   /// </summary>
   [Description("markdown_page")]
   Markdown,
 
   /// <summary>
-  /// The wiki page is a main page.
+  /// Indicates that the wiki page is a main page, having a special layout.
   /// </summary>
   [Description("main_page")]
   Main
