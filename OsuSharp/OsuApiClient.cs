@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OsuSharp.Models.Responses;
+using OsuSharp.Models;
 using System.ComponentModel;
 using System.Net;
 using System.Net.Http.Headers;

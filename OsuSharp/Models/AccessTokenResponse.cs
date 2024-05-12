@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace OsuSharp.Models.Responses;
+namespace OsuSharp.Models;
 
 /// <summary>
 /// Represents the response of an access token request on the osu! API v2.
