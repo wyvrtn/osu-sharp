@@ -26,6 +26,8 @@ public partial class OsuApiClient
   private async IAsyncEnumerable<ForumPost> GetForumPostsAsync(int topicId, PostSort sort = PostSort.IDAscending, int limit = 20,
                                                               int? start = null, int? end = null)
   {
+    throw new NotImplementedException("This endpoint is unavailable for client credential flows.");
+
     // Always remember the cursor for the next request. Also remember the forum topic, as it is identical for all requests.
     string? cursor = null;
     ForumTopic topic = null!;
