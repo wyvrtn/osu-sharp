@@ -1,4 +1,4 @@
-﻿using OsuSharp.Models.Wiki;
+﻿using OsuSharp.Models.Wikis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
