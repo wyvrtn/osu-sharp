@@ -109,7 +109,7 @@ public class User
   /// The tournament banners of this user. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("active_tournament_banners")]
-  public ProfileBanner? Banners { get; private set; }
+  public ProfileBanner[]? Banners { get; private set; }
 
   /// <summary>
   /// The badges of this user. This is an optional property and may be null.
