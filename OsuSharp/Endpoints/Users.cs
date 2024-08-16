@@ -57,7 +57,7 @@ public partial class OsuApiClient
   /// <returns>The most played beatmaps of the user.</returns>
   public async Task<BeatmapSetExtended[]> GetUserBeatmapsAsync(int userId, BeatmapType type, int? limit = null, int? offset = null)
   {
-    if(type == BeatmapType.MostPlayed)
+    if (type == BeatmapType.MostPlayed)
       throw new ArgumentException("Please use GetUserMostPlayedAsync(), as the response type differs.", nameof(type));
 
     DescriptionAttribute attr = typeof(BeatmapType).GetField(type.ToString())!
