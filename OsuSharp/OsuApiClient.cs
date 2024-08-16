@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OsuSharp.Converters;
 using OsuSharp.Models;
 using System.ComponentModel;
 using System.Net;
@@ -17,7 +18,7 @@ public partial class OsuApiClient
   /// <summary>
   /// The authorization body used to authenticate to the osu! API v2.
   /// </summary>
-  private readonly Dictionary<string, string> _authorizationBody = new Dictionary<string, string>()
+  private readonly Dictionary<string, string> _authorizationBody = new()
   {
     { "client_id", "" },
     { "client_secret", "" },
@@ -28,7 +29,7 @@ public partial class OsuApiClient
   /// <summary>
   /// The HTTP client used to make requests to the osu! API v2.
   /// </summary>
-  private readonly HttpClient _http = new HttpClient()
+  private readonly HttpClient _http = new()
   {
     BaseAddress = new Uri("https://osu.ppy.sh/api/v2/")
   };
@@ -71,12 +72,10 @@ public partial class OsuApiClient
     {
       // Request a new access token and parses the JSON in the response into a response object.
       var response = await _http.PostAsync("https://osu.ppy.sh/oauth/token", new FormUrlEncodedContent(_authorizationBody));
-      string json = await response.Content.ReadAsStringAsync();
-      AccessTokenResponse? apResponse = JsonConvert.DeserializeObject<AccessTokenResponse>(json);
+      AccessTokenResponse? apResponse = JsonConvert.DeserializeObject<AccessTokenResponse>(await response.Content.ReadAsStringAsync())
+        ?? throw new OsuApiException("An error occured while requesting a new access token. (response is null)");
 
       // Validate the parsed JSON object.
-      if (apResponse is null)
-        throw new OsuApiException("An error occured while requesting a new access token. (response is null)");
       if (apResponse.AccessToken is null || apResponse.ExpiresIn is null) // Error fields are most likely specified
         throw new OsuApiException($"An error occured while requesting a new access token: {apResponse.ErrorDescription} ({apResponse.ErrorCode}).");
 
@@ -126,8 +125,10 @@ public partial class OsuApiClient
       }
 
       // Parse the JSON in the response into the specified type and return it.
-      string s = await response.Content.ReadAsStringAsync();
-      return JsonConvert.DeserializeObject<T?>(s);
+      return JsonConvert.DeserializeObject<T?>(await response.Content.ReadAsStringAsync(), new JsonSerializerSettings()
+      {
+        Converters = new JsonConverter[] { new GradeConverter() }
+      });
     }
     catch (Exception ex)
     {
@@ -140,7 +141,7 @@ public partial class OsuApiClient
   /// </summary>
   /// <param name="parameters">The parameters.</param>
   /// <returns>The query parameter string.</returns>
-  private string BuildQueryString(Dictionary<string, object?> parameters)
+  private static string BuildQueryString(Dictionary<string, object?> parameters)
   {
     string str = "";
 

@@ -20,7 +20,7 @@ internal class StringEnumConverter : JsonConverter
     // If the value is an array, read each value and convert it to an enum using this converter itself.
     if (reader.TokenType == JsonToken.StartArray)
     {
-      List<object?> list = new List<object?>();
+      List<object?> list = new();
       while (reader.Read() && reader.TokenType != JsonToken.EndArray)
         list.Add(ReadJson(reader, objectType.GetElementType()!, existingValue, serializer));
 
@@ -39,9 +39,8 @@ internal class StringEnumConverter : JsonConverter
     foreach (FieldInfo field in objectType.GetFields().Where(x => x.Name != "value__"))
     {
       // Try to find the description attribute. If not found, throw an exception.
-      DescriptionAttribute? descriptionAttribute = field.GetCustomAttribute<DescriptionAttribute>();
-      if (descriptionAttribute is null)
-        throw new JsonSerializationException($"Unable to find a description attribute for the field '{field.Name}'.");
+      DescriptionAttribute? descriptionAttribute = field.GetCustomAttribute<DescriptionAttribute>()
+        ?? throw new JsonSerializationException($"Unable to find a description attribute for the field '{field.Name}'.");
 
       // Get the value of the description attribute and compare it to the value read from the reader. If it matches, return the enum value.
       if (descriptionAttribute.Description.Equals(reader.Value))
@@ -54,12 +53,24 @@ internal class StringEnumConverter : JsonConverter
 
   public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
   {
-    // Get the description attribute. If not found, throw an exception.
-    DescriptionAttribute? descriptionAttribute = value?.GetType().GetField(value?.ToString() ?? "")?.GetCustomAttribute<DescriptionAttribute>();
-    if (descriptionAttribute is null)
-      throw new JsonSerializationException($"Unable to find a description attribute for the enum value '{value}'.");
+    if(value is Array array)
+    {
+      // Write each value in the array using this converter itself.
+      writer.WriteStartArray();
+      foreach(var item in array)
+        WriteJson(writer, item, serializer);
+      writer.WriteEndArray();
+    }
+    else if (value is Enum e)
+    {
+      // Get the description attribute of the enum value. If not found, throw an exception.
+      DescriptionAttribute? descriptionAttribute = e.GetType().GetField(e.ToString())!.GetCustomAttribute<DescriptionAttribute>()
+        ?? throw new JsonSerializationException($"Unable to find a description attribute for the enum value '{e}'.");
 
-    // Write the description attribute value to the writer.
-    writer.WriteValue(descriptionAttribute.Description);
+      // Write the description attribute value to the writer.
+      writer.WriteValue(descriptionAttribute.Description);
+    }
+
+    throw new JsonSerializationException($"{value?.GetType()} is not an enum value or array.");
   }
 }

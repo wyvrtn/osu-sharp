@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OsuSharp.Converters;
 
 namespace OsuSharp.Models.Users;
 
@@ -96,7 +97,7 @@ public class User
   /// The account history of this user, containing their restrictions, silences, etc. This is an optional property and may be null.
   /// </summary>
   [JsonProperty("account_history")]
-  public AccountHistoryEntry? AccountHistory { get; private set; }
+  public AccountHistoryEntry[]? AccountHistory { get; private set; }
 
   /// <summary>
   /// TODO: what is this? i thought it might be the "main" one or if its just one
