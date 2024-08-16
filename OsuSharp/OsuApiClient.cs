@@ -125,10 +125,8 @@ public partial class OsuApiClient
       }
 
       // Parse the JSON in the response into the specified type and return it.
-      return JsonConvert.DeserializeObject<T?>(await response.Content.ReadAsStringAsync(), new JsonSerializerSettings()
-      {
-        Converters = new JsonConverter[] { new GradeConverter() }
-      });
+      string s = await response.Content.ReadAsStringAsync();
+      return JsonConvert.DeserializeObject<T?>(s);
     }
     catch (Exception ex)
     {
@@ -152,11 +150,8 @@ public partial class OsuApiClient
 
       // Handle the value->string parsing based on it's type.
       if (kvp.Value is Enum e)
-      {
         // If the enum has a description attribute, use it. Otherwise, use the enum value.
-        DescriptionAttribute? attr = e.GetType().GetField(e.ToString())!.GetCustomAttribute<DescriptionAttribute>();
-        str += attr?.Description ?? e.ToString();
-      }
+        str += e.GetType().GetField(e.ToString())!.GetCustomAttribute<DescriptionAttribute>()?.Description ?? e.ToString();
       else if (kvp.Value is DateTime dt)
         // Use the ISO 8601 format for dates.
         str += dt.ToString("o");

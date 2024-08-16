@@ -23,10 +23,10 @@ public class Score
   public float Accuracy { get; private set; }
 
   /// <summary>
-  /// The ID of the best score the player of this score achieved on the beatmap.
+  /// The ID of the best score the player of this score achieved on the beatmap. This will be null if the player has no best score on the beatmap.
   /// </summary>
   [JsonProperty("best_id")]
-  public long BestId { get; private set; }
+  public long? BestId { get; private set; }
 
   /// <summary>
   /// The datetime at which this score was submitted to the osu! servers.
@@ -75,7 +75,7 @@ public class Score
   /// The amount of performance points the score is worth. This will be null if the score is not ranked.
   /// </summary>
   [JsonProperty("pp")]
-  public float PP { get; private set; }
+  public float? PP { get; private set; }
 
   /// <summary>
   /// The grade of this score. (XH, X, SH, S, A, B, C, D)
