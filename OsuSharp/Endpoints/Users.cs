@@ -101,4 +101,27 @@ public partial class OsuApiClient
 
     return await GetFromJsonAsync<User>($"users/{userIdentifier}/{rulesetStr}");
   }
+
+  /// <summary>
+  /// Returns all users with the specified IDs, optionally including the <c>statistics_rulesets.variants</c> attribute.
+  /// <br/><br/>
+  /// API notes:<br/>
+  /// Up to 50 users can be requested at once.<br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-users"/>
+  /// </summary>
+  /// <param name="ids">The user IDs.</param>
+  /// <param name="include_variant_statistics">Optional. Bool whether the <c>statistics_rulesets.variants</c> attribute is included.</param>
+  /// <returns>The users with the specified IDs.</returns>
+  public async Task<User[]?> GetUsersAsync(int[] ids, bool include_variant_statistics = false)
+  {
+    if (ids.Length > 50)
+      throw new ArgumentOutOfRangeException("The API only supporst 50 users to be requested at once.", nameof(ids));
+
+    // Build the query parameters with an entry for each specified id. TODO: Actually add statistics_rulesets to the model
+    Dictionary<string, object?> parameters = new() { { "include_variant_statistics", include_variant_statistics } };
+    foreach (int id in ids)
+      parameters.Add($"ids[]", id);
+
+    return (await GetFromJsonAsync<User[]>($"users", parameters, x => x["users"]))!;
+  }
 }
