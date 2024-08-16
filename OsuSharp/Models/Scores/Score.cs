@@ -14,6 +14,8 @@ namespace OsuSharp.Models.Scores;
 /// </summary>
 public class Score
 {
+  // TODO: migrate to the new score & API format/version
+
   #region Default Attributes
 
   /// <summary>
