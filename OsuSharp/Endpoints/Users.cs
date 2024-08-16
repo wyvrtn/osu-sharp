@@ -11,6 +11,22 @@ public partial class OsuApiClient
   // API docs: https://osu.ppy.sh/docs/index.html#users
 
   /// <summary>
+  /// Returns the kudosu history of the user with the specified ID.
+  /// </summary>
+  /// <param name="userId">The ID of the user.</param>
+  /// <param name="limit">The amount of history entries to return.</param>
+  /// <param name="offset">The offset in the history to return at.</param>
+  /// <returns></returns>
+  public async Task<KudosuHistoryEntry[]> GetKudosuHistoryAsync(int userId, int? limit = null, int? offset = null)
+  {
+    return (await GetFromJsonAsync<KudosuHistoryEntry[]>($"users/{userId}/kudosu", new Dictionary<string, object?>
+    {
+      { "limit", limit },
+      { "offset", offset }
+    }))!;
+  }
+
+  /// <summary>
   /// Returns the most played beatmaps of the specified user.
   /// <br/><br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-user-beatmaps"/>
