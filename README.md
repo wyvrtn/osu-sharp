@@ -103,17 +103,17 @@ News (0% 0/2)
   [ ] /news/{news}
 
 Ranking (0% 0/3)
-  [ ] /rankings/kudosu
+  [✓] /rankings/kudosu
   [ ] /rankings/{mode}/{type}
   [ ] /spotlights
 
 Users (0% 0/6)
-  [ ] /users
-  [ ] /users/{user}/{mode?}
-  [ ] /users/{user}/kudosu
-  [ ] /users/{user}/scores/{type}
-  [ ] /users/{user}/beatmapsets/{type}
-  [ ] /users/{user}/recent_activity
+  [✓] /users
+  [✓] /users/{user}/{mode?}
+  [✓] /users/{user}/kudosu
+  [✓] /users/{user}/scores/{type}
+  [✓] /users/{user}/beatmapsets/{type}
+  [✓] /users/{user}/recent_activity
 
 Wiki (0% 0/1)
   [✓] /wiki/{locale}/{path}
