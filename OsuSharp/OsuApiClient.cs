@@ -126,7 +126,10 @@ public partial class OsuApiClient
 
       // Parse the JSON in the response into the specified type and return it.
       string s = await response.Content.ReadAsStringAsync();
-      return JsonConvert.DeserializeObject<T?>(s);
+      return JsonConvert.DeserializeObject<T?>(s, new JsonSerializerSettings()
+      {
+        Converters = new JsonConverter[] { new EventConverter() }
+      });
     }
     catch (Exception ex)
     {

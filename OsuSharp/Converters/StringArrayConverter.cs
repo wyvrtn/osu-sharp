@@ -7,11 +7,7 @@ namespace OsuSharp.Converters;
 /// </summary>
 internal class StringArrayConverter : JsonConverter
 {
-  public override bool CanConvert(Type objectType)
-  {
-    // Only allow string arrays to be converted.
-    return objectType.Equals(typeof(string[]));
-  }
+  public override bool CanConvert(Type objectType) => objectType == typeof(string[]);
 
   public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
   {

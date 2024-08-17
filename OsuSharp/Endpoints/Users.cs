@@ -1,5 +1,6 @@
 ﻿using OsuSharp.Enums;
 using OsuSharp.Models.Beatmaps;
+using OsuSharp.Models.Events;
 using OsuSharp.Models.Scores;
 using OsuSharp.Models.Users;
 using System.ComponentModel;
@@ -13,6 +14,8 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Returns the kudosu history of the user with the specified ID.
+  /// <br/><br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-user-kudosu"/>
   /// </summary>
   /// <param name="userId">The ID of the user.</param>
   /// <param name="limit">Optional. The amount of history entries to return.</param>
@@ -25,6 +28,34 @@ public partial class OsuApiClient
       { "limit", limit },
       { "offset", offset }
     }))!;
+  }
+
+  /// <summary>
+  /// Returns the user's scores with the specified type, optionally excluding Lazer scores or fails, and in the specified ruleset.
+  /// <br/><br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-user-scores"/>
+  /// </summary>
+  /// <param name="userId">The user ID.</param>
+  /// <param name="type">The type of scores to return.</param>
+  /// <param name="legacyOnly">Optional. Bool whether only legacy scores (no lazer) will be returned. Defaults to false.</param>
+  /// <param name="includeFails">Optional. Bool whether fails should be included. Defaults to false.</param>
+  /// <param name="ruleset">Optional. The ruleset in which the scores are returned. Defaults to the users' preferred ruleset.</param>
+  /// <param name="limit">Optional. The amount of results to return.</param>
+  /// <param name="offset">Optional. The offset for the scores to return.</param>
+  /// <returns>The scores of the specified type or null, if the user was not found.</returns>
+  public async Task<Score[]?> GetUserScoresAsync(int userId, UserScoreType type, bool legacyOnly = false, bool includeFails = false,
+                                                 Ruleset? ruleset = null, int? limit = null, int? offset = null)
+  {
+    string typeStr = typeof(UserScoreType).GetField(type.ToString())!.GetCustomAttribute<DescriptionAttribute>()!.Description;
+
+    return await GetFromJsonAsync<Score[]>($"users/{userId}/scores/{typeStr}/", new Dictionary<string, object?>
+    {
+      { "legacy_only", legacyOnly },
+      { "include_fails", includeFails },
+      { "mode", ruleset },
+      { "limit", limit },
+      { "offset", offset }
+    });
   }
 
   /// <summary>
@@ -69,17 +100,39 @@ public partial class OsuApiClient
   }
 
   /// <summary>
+  /// Returns the recent events of the specified user.
+  /// <br/><br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-user-recent-activity"/>
+  /// </summary>
+  /// <param name="userId">The ID of the user.</param>
+  /// <param name="limit"> Optional. The amount of events to limit to.</param>
+  /// <param name="offset">Optional. The offset for the events returned.</param>
+  /// <returns>The recent events of the user.</returns>
+  public async Task<Event[]?> GetRecentActivityAsync(int userId, int? limit = null, int? offset = null)
+  {
+    return await GetFromJsonAsync<Event[]>($"users/{userId}/recent_activity", new Dictionary<string, object?>
+    {
+      { "limit", limit },
+      { "offset", offset }
+    });
+  }
+
+  /// <summary>
   /// Returns the user with the specified ID, optionally in the specified ruleset.<br/>
   /// If no ruleset is specified, the user is returned in their default ruleset.
+  /// <br/><br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-user"/>
   /// </summary>
   /// <param name="userId">The user ID.</param>
   /// <param name="ruleset">Optional. The ruleset in which the user is returned.</param>
-  /// <returns>The user with the specified ID or null, if the user was not found..</returns>
+  /// <returns>The user with the specified ID or null, if the user was not found.</returns>
   public async Task<User?> GetUserAsync(int userId, Ruleset? ruleset = null) => await GetUserInternalAsync(userId.ToString(), ruleset);
 
   /// <summary>
   /// Returns the user with the specified name, optionally in the specified ruleset.<br/>
   /// If no ruleset is specified, the user is returned in their default ruleset.
+  /// <br/><br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-user"/>
   /// </summary>
   /// <param name="username">The user name.</param>
   /// <param name="ruleset">Optional. The ruleset in which the user is returned.</param>
@@ -89,6 +142,8 @@ public partial class OsuApiClient
   /// <summary>
   /// Returns the user with the specified identifier, optionally in the specified ruleset.<br/>
   /// If no ruleset is specified, the user is returned in their default ruleset.
+  /// <br/><br/>
+  /// <a href="https://osu.ppy.sh/docs/index.html#get-user"/>
   /// </summary>
   /// <param name="userIdentifier">The user identifier (ID or '@'-prefixed username).</param>
   /// <param name="ruleset">Optional. The ruleset in which the user is returned.</param>
@@ -98,32 +153,6 @@ public partial class OsuApiClient
     string rulesetStr = ruleset is null ? "" : typeof(Ruleset).GetField(ruleset.ToString()!)!.GetCustomAttribute<DescriptionAttribute>()!.Description;
 
     return await GetFromJsonAsync<User>($"users/{userIdentifier}/{rulesetStr}");
-  }
-
-  /// <summary>
-  /// Returns the user's scores with the specified type, optionally excluding Lazer scores or fails, and in the specified ruleset.
-  /// </summary>
-  /// <param name="userId">The user ID.</param>
-  /// <param name="type">The type of scores to return.</param>
-  /// <param name="legacyOnly">Optional. Bool whether only legacy scores (no lazer) will be returned. Defaults to false.</param>
-  /// <param name="includeFails">Optional. Bool whether fails should be included. Defaults to false.</param>
-  /// <param name="ruleset">Optional. The ruleset in which the scores are returned. Defaults to the users' preferred ruleset.</param>
-  /// <param name="limit">Optional. The amount of results to return.</param>
-  /// <param name="offset">Optional. The offset for the scores to return.</param>
-  /// <returns>The scores of the specified type or null, if the user was not found.</returns>
-  public async Task<Score[]?> GetUserScoresAsync(int userId, UserScoreType type, bool legacyOnly = false, bool includeFails = false,
-                                                 Ruleset? ruleset = null, int? limit = null, int? offset = null)
-  {
-    string typeStr = typeof(UserScoreType).GetField(type.ToString())!.GetCustomAttribute<DescriptionAttribute>()!.Description;
-
-    return await GetFromJsonAsync<Score[]>($"users/{userId}/scores/{typeStr}/", new Dictionary<string, object?>
-    {
-      { "legacy_only", legacyOnly },
-      { "include_fails", includeFails },
-      { "mode", ruleset },
-      { "limit", limit },
-      { "offset", offset }
-    });
   }
 
   /// <summary>
@@ -140,7 +169,7 @@ public partial class OsuApiClient
   public async Task<User[]> GetUsersAsync(int[] ids, bool includeVariantStatistics = false)
   {
     if (ids.Length > 50)
-      throw new ArgumentOutOfRangeException("The API only supporst 50 users to be requested at once.", nameof(ids));
+      throw new ArgumentOutOfRangeException(nameof(ids), "The API only supporst 50 users to be requested at once.");
 
     // Build the query parameters with an entry for each specified id. TODO: Actually add statistics_rulesets to the model
     Dictionary<string, object?> parameters = new() { { "include_variant_statistics", includeVariantStatistics } };

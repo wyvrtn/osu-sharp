@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OsuSharp.Enums;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -9,11 +10,7 @@ namespace OsuSharp.Converters;
 /// </summary>
 internal class StringEnumConverter : JsonConverter
 {
-  public override bool CanConvert(Type objectType)
-  {
-    // Only allow enums to be converted.
-    return objectType.IsEnum || (objectType.GetElementType()?.IsEnum ?? false);
-  }
+  public override bool CanConvert(Type objectType) => objectType.IsEnum || (objectType.GetElementType()?.IsEnum ?? false);
 
   public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
   {
@@ -35,29 +32,20 @@ internal class StringEnumConverter : JsonConverter
     else if (reader.TokenType is not JsonToken.String || reader.Value is null)
       throw new JsonSerializationException($"Unable to convert '{reader.Value}' ({reader.TokenType}) into an enum.");
 
-    // Go through all the values of the enum, get the description attribute and check if it matches the value read from the reader.
-    foreach (FieldInfo field in objectType.GetFields().Where(x => x.Name != "value__"))
-    {
-      // Try to find the description attribute. If not found, throw an exception.
-      DescriptionAttribute? descriptionAttribute = field.GetCustomAttribute<DescriptionAttribute>()
-        ?? throw new JsonSerializationException($"Unable to find a description attribute for the field '{field.Name}'.");
-
-      // Get the value of the description attribute and compare it to the value read from the reader. If it matches, return the enum value.
-      if (descriptionAttribute.Description.Equals(reader.Value))
-        return field.GetValue(null);
-    }
-
-    // Throw an exception if no matching enum value was found.
-    throw new JsonSerializationException($"Unable to find a matching enum value for the string '{reader.Value}'.");
+    // Find the enum value that has a description attribute with a matching value to the string from the reader.
+    return Enum.GetValues(objectType).Cast<object>()
+      .Select(x => objectType.GetField(x.ToString()!)!)
+      .FirstOrDefault(x => x.GetCustomAttribute<DescriptionAttribute>()!.Description.Equals(reader.Value))?.GetValue(null)
+      ?? throw new JsonSerializationException($"Unable to find a matching enum value for the string '{reader.Value}'.");
   }
 
   public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
   {
-    if(value is Array array)
+    if (value is Array array)
     {
       // Write each value in the array using this converter itself.
       writer.WriteStartArray();
-      foreach(var item in array)
+      foreach (var item in array)
         WriteJson(writer, item, serializer);
       writer.WriteEndArray();
     }
