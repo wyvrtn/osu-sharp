@@ -22,14 +22,12 @@ public class RankEvent : Event
   /// The grade achieved by the user.
   /// </summary>
   [JsonProperty("scoreRank")]
-  [JsonConverter(typeof(GradeConverter))]
   public Grade ScoreRank { get; private set; } = default!;
 
   /// <summary>
   /// The ruleset this event takes place in.
   /// </summary>
   [JsonProperty("mode")]
-  [JsonConverter(typeof(StringEnumConverter))]
   public Ruleset Mode { get; private set; } = default!;
 
   /// <summary>

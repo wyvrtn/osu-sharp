@@ -16,7 +16,6 @@ public class RankLostEvent : Event
   /// The ruleset this event takes place in.
   /// </summary>
   [JsonProperty("mode")]
-  [JsonConverter(typeof(StringEnumConverter))]
   public Ruleset Mode { get; private set; } = default!;
 
   /// <summary>

@@ -52,7 +52,6 @@ public class Score
   /// The ruleset this score was achieved in.
   /// </summary>
   [JsonProperty("mode")]
-  [JsonConverter(typeof(StringEnumConverter))]
   public Ruleset Ruleset { get; private set; }
 
   /// <summary>
@@ -83,7 +82,6 @@ public class Score
   /// The grade of this score. (XH, X, SH, S, A, B, C, D)
   /// </summary>
   [JsonProperty("rank")]
-  [JsonConverter(typeof(GradeConverter))]
   public Grade Grade { get; private set; }
 
   /// <summary>

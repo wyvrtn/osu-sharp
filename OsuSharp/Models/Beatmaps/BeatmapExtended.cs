@@ -78,7 +78,6 @@ public class BeatmapExtended : Beatmap
   /// The hit length of this beatmap.
   /// </summary>
   [JsonProperty("hit_length")]
-  [JsonConverter(typeof(TimeSpanConverter))]
   public TimeSpan HitLength { get; private set; }
 
   /// <summary>

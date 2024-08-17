@@ -16,7 +16,6 @@ public class BeatmapsetApproveEvent : Event
   /// The approval state of the beatmapset.
   /// </summary>
   [JsonProperty("approval")]
-  [JsonConverter(typeof(StringEnumConverter))]
   public BeatmapsetEventApproval Approval { get; private set; } = default!;
 
   /// <summary>

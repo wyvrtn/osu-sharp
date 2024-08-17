@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using OsuSharp.Enums;
 using System.ComponentModel;
 using System.Reflection;
 

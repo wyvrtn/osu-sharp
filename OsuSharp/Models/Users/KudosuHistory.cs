@@ -22,7 +22,6 @@ public class KudosuHistoryEntry
   /// The action that resulted in this kudosu entry.
   /// </summary>
   [JsonProperty("action")]
-  [JsonConverter(typeof(StringEnumConverter))]
   public KudosuAction Action { get; private set; }
 
   /// <summary>
@@ -35,7 +34,6 @@ public class KudosuHistoryEntry
   /// The type of object that this kudosu entry origins from.
   /// </summary>
   [JsonProperty("model")]
-  [JsonConverter(typeof(StringEnumConverter))]
   public KudosuModel Model { get; private set; }
 
   /// <summary>

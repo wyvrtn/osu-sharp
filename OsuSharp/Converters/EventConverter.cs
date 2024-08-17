@@ -26,19 +26,19 @@ internal class EventConverter : JsonConverter
     return Enum.GetValues<EventType>().FirstOrDefault(x =>
      typeof(EventType).GetField(x.ToString())?.GetCustomAttribute<DescriptionAttribute>()!.Description == obj["type"]!.Value<string>()!) switch
     {
-      EventType.Achievement => obj.ToObject<AchievementEvent>(),
-      EventType.BeatmapPlaycount => obj.ToObject<BeatmapPlaycountEvent>(),
-      EventType.BeatmapsetApprove => obj.ToObject<BeatmapsetApproveEvent>(),
-      EventType.BeatmapsetDelete => obj.ToObject<BeatmapsetDeleteEvent>(),
-      EventType.BeatmapsetRevive => obj.ToObject<BeatmapsetReviveEvent>(),
-      EventType.BeatmapsetUpdate => obj.ToObject<BeatmapsetUpdateEvent>(),
-      EventType.BeatmapsetUpload => obj.ToObject<BeatmapsetUploadEvent>(),
-      EventType.Rank => obj.ToObject<RankEvent>(),
-      EventType.RankLost => obj.ToObject<RankLostEvent>(),
-      EventType.UserSupportAgain => obj.ToObject<UserSupportAgainEvent>(),
-      EventType.UserSupportFirst => obj.ToObject<UserSupportFirstEvent>(),
-      EventType.UserSupportGift => obj.ToObject<UserSupportGiftEvent>(),
-      EventType.UsernameChange => obj.ToObject<UsernameChangeEvent>(),
+      EventType.Achievement => obj.ToObject<AchievementEvent>(serializer),
+      EventType.BeatmapPlaycount => obj.ToObject<BeatmapPlaycountEvent>(serializer),
+      EventType.BeatmapsetApprove => obj.ToObject<BeatmapsetApproveEvent>(serializer),
+      EventType.BeatmapsetDelete => obj.ToObject<BeatmapsetDeleteEvent>(serializer),
+      EventType.BeatmapsetRevive => obj.ToObject<BeatmapsetReviveEvent>(serializer),
+      EventType.BeatmapsetUpdate => obj.ToObject<BeatmapsetUpdateEvent>(serializer),
+      EventType.BeatmapsetUpload => obj.ToObject<BeatmapsetUploadEvent>(serializer),
+      EventType.Rank => obj.ToObject<RankEvent>(serializer),
+      EventType.RankLost => obj.ToObject<RankLostEvent>(serializer),
+      EventType.UserSupportAgain => obj.ToObject<UserSupportAgainEvent>(serializer),
+      EventType.UserSupportFirst => obj.ToObject<UserSupportFirstEvent>(serializer),
+      EventType.UserSupportGift => obj.ToObject<UserSupportGiftEvent>(serializer),
+      EventType.UsernameChange => obj.ToObject<UsernameChangeEvent>(serializer),
       _ => throw new NotImplementedException($"Event '{obj["type"]!.Value<string>()!}' is not implemented.")
     };
   }

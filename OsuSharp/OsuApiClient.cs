@@ -16,6 +16,15 @@ namespace OsuSharp;
 public partial class OsuApiClient
 {
   /// <summary>
+  /// The JSON serializer settings used by the API client.
+  /// </summary>
+  private readonly JsonSerializerSettings _jsonSettings = new()
+  {
+    Converters = new JsonConverter[] { new EventConverter(),  new GradeConverter(), new StringArrayConverter(), 
+                                       new StringEnumConverter(), new Converters.TimeSpanConverter() }
+  };
+
+  /// <summary>
   /// The authorization body used to authenticate to the osu! API v2.
   /// </summary>
   private readonly Dictionary<string, string> _authorizationBody = new()
@@ -126,10 +135,7 @@ public partial class OsuApiClient
 
       // Parse the JSON in the response into the specified type and return it.
       string s = await response.Content.ReadAsStringAsync();
-      return JsonConvert.DeserializeObject<T?>(s, new JsonSerializerSettings()
-      {
-        Converters = new JsonConverter[] { new EventConverter() }
-      });
+      return JsonConvert.DeserializeObject<T?>(s, _jsonSettings);
     }
     catch (Exception ex)
     {

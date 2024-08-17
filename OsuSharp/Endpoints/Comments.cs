@@ -47,7 +47,7 @@ public partial class OsuApiClient
     do
     {
       // Send the request.
-      CommentBundle? bundle = await GetFromJsonAsync<CommentBundle>($"comments", new Dictionary<string, object?>()
+      CommentBundle bundle = await GetFromJsonAsync<CommentBundle>($"comments", new Dictionary<string, object?>()
       {
         { "cursor[id]", cursor?.Id },
         { "cursor[created_at]", cursor?.CreatedAt },
@@ -56,11 +56,7 @@ public partial class OsuApiClient
         { "commentable_id", commentableId },
         { "parent_id", parentId },
         { "sort", sort }
-      });
-
-      // Validate the response and throw an exception if the bundle is null.
-      if (bundle is null)
-        throw new OsuApiException("An error occured while requesting the comment bundle. (bundle is null)");
+      }) ?? throw new OsuApiException("An error occured while requesting the comment bundle. (bundle is null)");
 
       // Yield return the bundle and update the cursor for the next request.
       yield return bundle;
