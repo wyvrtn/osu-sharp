@@ -10,6 +10,8 @@ public partial class OsuApiClient
   /// Returns an asynchronous enumerable for all events across osu! in the last 30 days, optionally with the specified sorting,
   /// allowing to lazily enumerate through all beatmap packs, performing further pagination requests as necessary.<br/>
   /// <br/><br/>
+  /// API docs:<br/>
+  /// This endpoint does not provide support for targetting a specific page directly per API design.<br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-events"/>
   /// </summary>
   /// <param name="sort">The sorting for the events. Default to newest first.</param>

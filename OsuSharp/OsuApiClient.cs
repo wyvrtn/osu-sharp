@@ -20,8 +20,8 @@ public partial class OsuApiClient
   /// </summary>
   private readonly JsonSerializerSettings _jsonSettings = new()
   {
-    Converters = new JsonConverter[] { new EventConverter(),  new GradeConverter(), new StringArrayConverter(), 
-                                       new StringEnumConverter(), new Converters.TimeSpanConverter() }
+    // The StringArrayConverter is referenced on specific properties instead as not all string[] are parsed this way.
+    Converters = new JsonConverter[] { new EventConverter(),  new GradeConverter(), new StringEnumConverter(), new Converters.TimeSpanConverter() }
   };
 
   /// <summary>
@@ -96,14 +96,15 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Sends a GET request to the specified URL and parses the JSON in the response into the specified type.
+  /// Sends a GET request to the specified URL and parses the JSON in the response into the specified type.<br/>
+  /// If the requested resource could not be found, null is returned. If the request fails otherwise, an <see cref="OsuApiException"/> is thrown.<br/>
   /// </summary>
   /// <typeparam name="T">The type to parse the JSON in the response into.</typeparam>
   /// <param name="url">The request URL.</param>
   /// <param name="parameters">Optional. The query parameters of the URL. All parameters with a null value are ignored.</param>
   /// <param name="jsonSelector">Optional. A selector for the base JSON, allowing to parse a sub-property of the JSON object.</param>
   /// <param name="method">Optional. The HTTP Method used. This defaults to GET, and only exists for niche API inconsistencies.</param>
-  /// <returns>The parsed response.</returns>
+  /// <returns>The parsed response or null, if the requested resource could not be found.</returns>
   private async Task<T?> GetFromJsonAsync<T>(string url, Dictionary<string, object?>? parameters = null, Func<JObject, JToken?>? jsonSelector = null,
                                              HttpMethod? method = null)
   {

@@ -84,6 +84,7 @@ public class BeatmapSetExtended : BeatmapSet
   /// The tags of this beatmapset, used for searching.
   /// </summary>
   [JsonProperty("tags")]
+  [JsonConverter(typeof(StringArrayConverter))]
   public string[] Tags { get; private set; } = default!;
 
   #endregion
