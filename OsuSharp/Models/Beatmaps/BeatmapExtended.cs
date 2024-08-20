@@ -37,9 +37,9 @@ public class BeatmapExtended : Beatmap
   /// TODO: Why can this be null? Its not optional
   /// </summary>
   [JsonProperty("convert")]
-  public bool? Convert { get; private set; }
+  public bool? IsConverted { get; private set; }
 
-  /// <summary>
+  /// <summary>A
   /// The amount of circles in this beatmap.
   /// </summary>
   [JsonProperty("count_circles")]
