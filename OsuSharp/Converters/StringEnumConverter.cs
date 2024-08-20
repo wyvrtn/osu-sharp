@@ -13,8 +13,11 @@ internal class StringEnumConverter : JsonConverter
 
   public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
   {
+    // If the value is null, return null.
+    if (reader.TokenType == JsonToken.Null)
+      return null;
     // If the value is an array, read each value and convert it to an enum using this converter itself.
-    if (reader.TokenType == JsonToken.StartArray)
+    else if (reader.TokenType == JsonToken.StartArray)
     {
       List<object?> list = new();
       while (reader.Read() && reader.TokenType != JsonToken.EndArray)
@@ -27,8 +30,8 @@ internal class StringEnumConverter : JsonConverter
 
       return array;
     }
-    // If the value is not a string or null, throw an exception.
-    else if (reader.TokenType is not JsonToken.String || reader.Value is null)
+    // If the value is otherwise not a string, throw an exception.
+    else if (reader.TokenType is not JsonToken.String)
       throw new JsonSerializationException($"Unable to convert '{reader.Value}' ({reader.TokenType}) into an enum.");
 
     // Find the enum value that has a description attribute with a matching value to the string from the reader.
