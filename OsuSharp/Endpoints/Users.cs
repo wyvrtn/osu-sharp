@@ -13,15 +13,15 @@ public partial class OsuApiClient
   // API docs: https://osu.ppy.sh/docs/index.html#users
 
   /// <summary>
-  /// Returns the kudosu history of the user with the specified ID.
+  /// Returns the kudosu history of the user with the specified ID. If the user was not found, null is returned.
   /// <br/><br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-user-kudosu"/>
   /// </summary>
   /// <param name="userId">The ID of the user.</param>
   /// <param name="limit">Optional. The amount of history entries to return.</param>
   /// <param name="offset">Optional. The offset in the history to return at.</param>
-  /// <returns></returns>
-  public async Task<KudosuHistoryEntry[]> GetKudosuHistoryAsync(int userId, int? limit = null, int? offset = null)
+  /// <returns>The kudosu history entries or null, if the user was not found.</returns>
+  public async Task<KudosuHistoryEntry[]?> GetKudosuHistoryAsync(int userId, int? limit = null, int? offset = null)
   {
     return (await GetFromJsonAsync<KudosuHistoryEntry[]>($"users/{userId}/kudosu", new Dictionary<string, object?>
     {
@@ -32,6 +32,7 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Returns the user's scores with the specified type, optionally excluding Lazer scores or fails, and in the specified ruleset.
+  /// If the user was not found, null is returned.
   /// <br/><br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-user-scores"/>
   /// </summary>
@@ -47,7 +48,6 @@ public partial class OsuApiClient
                                                  Ruleset? ruleset = null, int? limit = null, int? offset = null)
   {
     string typeStr = typeof(UserScoreType).GetField(type.ToString())!.GetCustomAttribute<DescriptionAttribute>()!.Description;
-
     return await GetFromJsonAsync<Score[]>($"users/{userId}/scores/{typeStr}/", new Dictionary<string, object?>
     {
       { "legacy_only", legacyOnly },
@@ -59,55 +59,55 @@ public partial class OsuApiClient
   }
 
   /// <summary>
-  /// Returns the most played beatmaps of the specified user.
+  /// Returns the most played beatmaps of the specified user. If the user was not found, null is returned.
   /// <br/><br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-user-beatmaps"/>
   /// </summary>
   /// <param name="userId">The ID of the user.</param>
   /// <param name="limit">Optional. The amount of beatmaps to limit to.</param>
   /// <param name="offset">Optional. The offset for the beatmaps returned.</param>
-  /// <returns>The most played beatmaps of the user.</returns>
-  public async Task<BeatmapPlaycount[]> GetUserMostPlayedAsync(int userId, int? limit = null, int? offset = null)
+  /// <returns>The most played beatmaps of the user or null, if the user was not found.</returns>
+  public async Task<BeatmapPlaycount[]?> GetUserMostPlayedAsync(int userId, int? limit = null, int? offset = null)
   {
     string typeStr = typeof(BeatmapType).GetField(nameof(BeatmapType.MostPlayed))!.GetCustomAttribute<DescriptionAttribute>()!.Description;
-    return (await GetFromJsonAsync<BeatmapPlaycount[]>($"users/{userId}/beatmapsets/{typeStr}", new Dictionary<string, object?>
+    return await GetFromJsonAsync<BeatmapPlaycount[]>($"users/{userId}/beatmapsets/{typeStr}", new Dictionary<string, object?>
     {
       { "limit", limit },
       { "offset", offset }
-    }))!;
+    });
   }
 
   /// <summary>
-  /// Returns all beatmaps of the specified user with the specified type.
+  /// Returns all beatmaps of the specified user with the specified type. If the user was not found, null is returned.
   /// <br/><br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-user-beatmaps"/>
   /// </summary>
   /// <param name="userId">The ID of the user.</param>
   /// <param name="limit"> Optional. The amount of beatmaps to limit to.</param>
   /// <param name="offset">Optional. The offset for the beatmaps returned.</param>
-  /// <returns>The most played beatmaps of the user.</returns>
-  public async Task<BeatmapSetExtended[]> GetUserBeatmapsAsync(int userId, BeatmapType type, int? limit = null, int? offset = null)
+  /// <returns>The most played beatmaps of the user or null, if the user was not found.</returns>
+  public async Task<BeatmapSetExtended[]?> GetUserBeatmapsAsync(int userId, BeatmapType type, int? limit = null, int? offset = null)
   {
     if (type == BeatmapType.MostPlayed)
       throw new ArgumentException("Please use GetUserMostPlayedAsync(), as the response type differs.", nameof(type));
 
     string typeStr = typeof(BeatmapType).GetField(type.ToString())!.GetCustomAttribute<DescriptionAttribute>()!.Description;
-    return (await GetFromJsonAsync<BeatmapSetExtended[]>($"users/{userId}/beatmapsets/{typeStr}", new Dictionary<string, object?>
+    return await GetFromJsonAsync<BeatmapSetExtended[]>($"users/{userId}/beatmapsets/{typeStr}", new Dictionary<string, object?>
     {
       { "limit", limit },
       { "offset", offset }
-    }))!;
+    });
   }
 
   /// <summary>
-  /// Returns the recent events of the specified user.
+  /// Returns the recent events of the specified user. If the user was not found, null is returned.
   /// <br/><br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-user-recent-activity"/>
   /// </summary>
   /// <param name="userId">The ID of the user.</param>
   /// <param name="limit"> Optional. The amount of events to limit to.</param>
   /// <param name="offset">Optional. The offset for the events returned.</param>
-  /// <returns>The recent events of the user.</returns>
+  /// <returns>The recent events of the user or null, if the user was not found.</returns>
   public async Task<Event[]?> GetRecentActivityAsync(int userId, int? limit = null, int? offset = null)
   {
     return await GetFromJsonAsync<Event[]>($"users/{userId}/recent_activity", new Dictionary<string, object?>
@@ -119,7 +119,7 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Returns the user with the specified ID, optionally in the specified ruleset.<br/>
-  /// If no ruleset is specified, the user is returned in their default ruleset.
+  /// If no ruleset is specified, the user is returned in their default ruleset. If the user was not found, null is returned.
   /// <br/><br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-user"/>
   /// </summary>
@@ -130,18 +130,18 @@ public partial class OsuApiClient
 
   /// <summary>
   /// Returns the user with the specified name, optionally in the specified ruleset.<br/>
-  /// If no ruleset is specified, the user is returned in their default ruleset.
+  /// If no ruleset is specified, the user is returned in their default ruleset. If the user was not found, null is returned.
   /// <br/><br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-user"/>
   /// </summary>
   /// <param name="username">The user name.</param>
   /// <param name="ruleset">Optional. The ruleset in which the user is returned.</param>
-  /// <returns>The user with the specified name or null, if the user was not found..</returns>
+  /// <returns>The user with the specified name or null, if the user was not found.</returns>
   public async Task<User?> GetUserAsync(string username, Ruleset? ruleset = null) => await GetUserInternalAsync($"@{username}", ruleset);
 
   /// <summary>
   /// Returns the user with the specified identifier, optionally in the specified ruleset.<br/>
-  /// If no ruleset is specified, the user is returned in their default ruleset.
+  /// If no ruleset is specified, the user is returned in their default ruleset. If the user was not found, null is returned.
   /// <br/><br/>
   /// <a href="https://osu.ppy.sh/docs/index.html#get-user"/>
   /// </summary>
