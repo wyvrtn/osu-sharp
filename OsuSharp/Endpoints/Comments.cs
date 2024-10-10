@@ -37,8 +37,8 @@ public partial class OsuApiClient
   /// <param name="parentId">The ID of the parent comment, returning it's replies.</param>
   /// <param name="sort">The sorting for the returned comments.</param>
   /// <returns>An asynchronous enumerable for lazily enumerating over the comment bundles.</returns>
-  public async IAsyncEnumerable<CommentBundle> GetCommentsAsync(int? after = null, CommentableType? type = null, int? commentableId = null, int? parentId = null,
-                                                                CommentSortType? sort = null)
+  public async IAsyncEnumerable<CommentBundle> GetCommentsAsync(int? after = null, CommentableType? type = null, int? commentableId = null,
+                                                                int? parentId = null, CommentSortType? sort = null)
   {
     // Always remember the cursor for the next request.
     Cursor? cursor = null;
