@@ -17,7 +17,7 @@ public enum BeatmapPackType
   Standard,
 
   /// <summary>
-  /// Targets all beatmap packs including featured artists. (F")
+  /// Targets all beatmap packs including featured artists. ("F")
   /// </summary>
   [Description("featured")]
   Featured,
